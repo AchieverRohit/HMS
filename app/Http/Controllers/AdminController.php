@@ -87,7 +87,6 @@ class AdminController extends Controller
     {
         // Get the logged-in admin's information from the session
         $LoggedAdminInfo = User::find(session('LoggedAdminInfo'));
-
         if (!$LoggedAdminInfo) {
             return redirect()->route('admin.login')->with('fail', 'You must be logged in to access the profile page');
         }
