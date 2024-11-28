@@ -11,7 +11,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h4 class="card-title mb-0">Patient Table</h4>
+                        <h4 class="card-title mb-0">Prescription Table</h4>
                         <a href="{{ route('admin.patient.add') }}" class="btn btn-sm btn-primary">
                             <i class="fas fa-user-plus"></i> Add User
                         </a>

@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="/css/vertical-layout-light/style.css">
     <!-- endinject -->
     <link rel="shortcut icon" href="/images/favicon.png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
 <body>
@@ -103,13 +104,13 @@
                     </li>
                     <li class="nav-item nav-profile dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                            @if ($LoggedAdminInfo->picture)
+                            
 
                             <img src="{{ asset('/images/profile_pictures/profile.webp') }}">
 
-                            @else
-                            <p>Admin Picture not available</p>
-                            @endif
+                           
+                            <!-- <p>Admin Picture not available</p> -->
+                          
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown"
                             aria-labelledby="profileDropdown">
@@ -153,6 +154,54 @@
                             href="{{ route('admin.profile') }}">
                             <i class="icon-layout menu-icon"></i>
                             <span class="menu-title">Profile</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{ Route::is('admin.patient') ? 'active' : '' }}"
+                            href="{{ route('admin.patient') }}">
+                            <i class="icon-layout menu-icon"></i>
+                            <span class="menu-title">Patients</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{ Route::is('admin.doctor') ? 'active' : '' }}"
+                            href="{{ route('admin.doctor') }}">
+                            <i class="icon-layout menu-icon"></i>
+                            <span class="menu-title">Doctors</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{ Route::is('admin.prescription') ? 'active' : '' }}"
+                            href="{{ route('admin.prescription') }}">
+                            <i class="icon-layout menu-icon"></i>
+                            <span class="menu-title">Prescription</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{ Route::is('admin.hospital') ? 'active' : '' }}"
+                            href="{{ route('admin.hospital') }}">
+                            <i class="icon-layout menu-icon"></i>
+                            <span class="menu-title">Hospital</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{ Route::is('admin.roles') ? 'active' : '' }}"
+                            href="{{ route('admin.roles') }}">
+                            <i class="icon-layout menu-icon"></i>
+                            <span class="menu-title">Roles</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{ Route::is('admin.staff') ? 'active' : '' }}"
+                            href="{{ route('admin.staff') }}">
+                            <i class="icon-layout menu-icon"></i>
+                            <span class="menu-title">Staff</span>
                         </a>
                     </li>
 

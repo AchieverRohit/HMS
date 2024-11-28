@@ -2,6 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\PatientController;
+use App\Http\Controllers\PrescriptionController;
+use App\Http\Controllers\HospitalController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\StaffController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -26,3 +33,32 @@ Route::get('/admin/register', [AdminController::class, 'showRegister'])->name('a
 Route::post('/admin/register', [AdminController::class, 'register'])->name('admin.register.submit');
 Route::get('/admin/dashboard', [AdminController::class, 'showDashboard'])->name('admin.dashboard');
 Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
+
+// Doctor
+Route::get('/admin/doctor', [DoctorController::class, 'showProfile'])->name('admin.doctor');
+// Route::get('/admin/patient', [PatientController::class, 'showProfile'])->name('admin.patient');
+// Route::post('/admin/patient/add', [PatientController::class, 'store'])->name('admin.patient.store');
+// Route::get('/admin/patient/edit/{id}', [PatientController::class, 'editForm'])->name('admin.patient.edit');
+// Route::put('/admin/patient/edit/{id}', [PatientController::class, 'update'])->name('admin.patient.update');
+// Route::delete('/admin/patient/delete/{id}', [PatientController::class, 'destroy'])->name('admin.patient.destroy');
+
+// Prescription
+Route::get('/admin/prescription', [PrescriptionController::class, 'showProfile'])->name('admin.prescription');
+// Route::get('/admin/patient', [PatientController::class, 'showProfile'])->name('admin.patient');
+// Route::post('/admin/patient/add', [PatientController::class, 'store'])->name('admin.patient.store');
+// Route::get('/admin/patient/edit/{id}', [PatientController::class, 'editForm'])->name('admin.patient.edit');
+// Route::put('/admin/patient/edit/{id}', [PatientController::class, 'update'])->name('admin.patient.update');
+// Route::delete('/admin/patient/delete/{id}', [PatientController::class, 'destroy'])->name('admin.patient.destroy');
+
+// Patient
+Route::get('/admin/patient/add', [PatientController::class, 'createForm'])->name('admin.patient.add');
+Route::get('/admin/patient', [PatientController::class, 'showProfile'])->name('admin.patient');
+Route::post('/admin/patient/add', [PatientController::class, 'store'])->name('admin.patient.store');
+Route::get('/admin/patient/edit/{id}', [PatientController::class, 'editForm'])->name('admin.patient.edit');
+Route::put('/admin/patient/edit/{id}', [PatientController::class, 'update'])->name('admin.patient.update');
+Route::delete('/admin/patient/delete/{id}', [PatientController::class, 'destroy'])->name('admin.patient.destroy');
+
+
+Route::get('/admin/hospital', [HospitalController::class, 'showProfile'])->name('admin.hospital');
+Route::get('/admin/role', [RoleController::class, 'showProfile'])->name('admin.roles');
+Route::get('/admin/staff', [StaffController::class, 'showProfile'])->name('admin.staff');

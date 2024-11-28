@@ -8,19 +8,20 @@
     <div class="content-wrapper">
         <div class="content-wrapper">
             <div class="row">
+
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Update Patient</h4>
-                            <form action="{{ route('admin.patient.update', ['id' => $patient->Id]) }}" method="POST" enctype="multipart/form-data">
-                                @method('PUT')
+                            <h4 class="card-title">Create Patient</h4>
+                            <form action="{{ route('admin.patient.add') }}" method="POST"
+                                enctype="multipart/form-data">
                                 @csrf
                                 <div class="container">
                                     <div class="row g-3 align-items-center">
                                         <div class="col-md-12 d-flex justify-content-between gap-3">
                                             <div class="flex-grow-1">
                                                 <label for="name1" class="form-label">Name 1</label>
-                                                <input type="text" id="FirstName" name="FirstName" class="form-control" value="{{ $patient->FirstName }}" required>
+                                                <input type="text" id="FirstName" name="FirstName" class="form-control" value="" required>
                                             </div>
                                             <div class="flex-grow-1 ml-3">
                                                 <label for="email">Email</label>
@@ -84,6 +85,10 @@
             </div>
         </div>
     </div>
+    <!-- content-wrapper ends -->
+    <!-- partial:partials/_footer.html -->
+
+    <!-- partial -->
 </div>
 
-@endsection
+@endsection 

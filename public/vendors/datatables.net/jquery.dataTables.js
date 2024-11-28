@@ -6494,7 +6494,7 @@
 	 */
 	function _fnLog( settings, level, msg, tn )
 	{
-		msg = 'DataTables warning: '+
+		msg = 'Hitesh DataTables warning: '+
 			(settings ? 'table id='+settings.sTableId+' - ' : '')+msg;
 	
 		if ( tn ) {
@@ -6512,7 +6512,8 @@
 			}
 	
 			if ( type == 'alert' ) {
-				alert( msg );
+				// alert( msg );
+				console.log(msg);
 			}
 			else if ( type == 'throw' ) {
 				throw new Error(msg);
