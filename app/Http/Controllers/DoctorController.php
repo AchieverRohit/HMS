@@ -6,13 +6,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Admin;
-use App\Models\User;
+use App\Models\Patient;
 
 
 class DoctorController extends Controller
 {
     public function showProfile()
     {
-        return view('admin.login');
+        $Patients = Patient::all();
+        return view('admin.doctor.list', [ 'patients' => $Patients ]);
     }
 }

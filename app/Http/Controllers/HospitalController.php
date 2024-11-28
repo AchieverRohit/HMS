@@ -9,11 +9,11 @@ use App\Models\Admin;
 use App\Models\Patient;
 
 
-class PrescriptionController extends Controller
+class HospitalController extends Controller
 {
     public function showProfile()
     {
         $Patients = Patient::all();
-        return view('admin.prescription.list', [ 'patients' => $Patients ]);
+        return view('admin.patient.list', [ 'patients' => $Patients ]);
     }
 }

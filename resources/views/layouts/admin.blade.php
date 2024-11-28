@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="/css/vertical-layout-light/style.css">
     <!-- endinject -->
     <link rel="shortcut icon" href="/images/favicon.png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
 <body>
@@ -176,7 +177,31 @@
                         <a class="nav-link {{ Route::is('admin.prescription') ? 'active' : '' }}"
                             href="{{ route('admin.prescription') }}">
                             <i class="icon-layout menu-icon"></i>
-                            <span class="menu-title">prescription</span>
+                            <span class="menu-title">Prescription</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{ Route::is('admin.hospital') ? 'active' : '' }}"
+                            href="{{ route('admin.hospital') }}">
+                            <i class="icon-layout menu-icon"></i>
+                            <span class="menu-title">Hospital</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{ Route::is('admin.roles') ? 'active' : '' }}"
+                            href="{{ route('admin.roles') }}">
+                            <i class="icon-layout menu-icon"></i>
+                            <span class="menu-title">Roles</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{ Route::is('admin.staff') ? 'active' : '' }}"
+                            href="{{ route('admin.staff') }}">
+                            <i class="icon-layout menu-icon"></i>
+                            <span class="menu-title">Staff</span>
                         </a>
                     </li>
 

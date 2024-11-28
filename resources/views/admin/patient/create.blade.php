@@ -12,7 +12,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Update Profile</h4>
+                            <h4 class="card-title">Create Patient</h4>
                             <form action="{{ route('admin.patient.add') }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
@@ -26,40 +26,40 @@
                                             <div class="flex-grow-1 ml-3">
                                                 <label for="email">Email</label>
                                                 <input disabled type="email" id="email" name="email"
-                                                    class="form-control" value="" required>
+                                                    class="form-control" value="">
                                             </div>
                                         </div>
                                         <div class="col-md-12 d-flex justify-content-between gap-3">
                                             <div class="flex-grow-1">
                                                 <label for="name1" class="form-label">Name 1</label>
-                                                <input type="text" id="name1" name="name1" class="form-control" value="" required>
+                                                <input type="text" id="name1" name="name1" class="form-control" value="">
                                             </div>
                                             <div class="flex-grow-1 ml-3">
                                                 <label for="email">Email</label>
                                                 <input disabled type="email" id="email" name="email"
-                                                    class="form-control" value="" required>
+                                                    class="form-control" value="">
                                             </div>
                                         </div>
                                         <div class="col-md-12 d-flex justify-content-between gap-3">
                                             <div class="flex-grow-1">
                                                 <label for="name1" class="form-label">Name 1</label>
-                                                <input type="text" id="name1" name="name1" class="form-control" value="" required>
+                                                <input type="text" id="name1" name="name1" class="form-control" value="">
                                             </div>
                                             <div class="flex-grow-1 ml-3">
                                                 <label for="email">Email</label>
                                                 <input disabled type="email" id="email" name="email"
-                                                    class="form-control" value="" required>
+                                                    class="form-control" value="">
                                             </div>
                                         </div>
                                         <div class="col-md-12 d-flex justify-content-between gap-3">
                                             <div class="flex-grow-1">
                                                 <label for="name1" class="form-label">Name 1</label>
-                                                <input type="text" id="name1" name="name1" class="form-control" value="" required>
+                                                <input type="text" id="name1" name="name1" class="form-control" value="">
                                             </div>
                                             <div class="flex-grow-1 ml-3">
                                                 <label for="email">Email</label>
                                                 <input disabled type="email" id="email" name="email"
-                                                    class="form-control" value="" required>
+                                                    class="form-control" value="">
                                             </div>
                                         </div>
                                     </div>

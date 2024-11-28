@@ -72,37 +72,39 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($patients as $user)
+                                @foreach ($patients as $patient)
                                     <tr>
                                     <td class="py-1">
-                                        @if ($user->picture)
-                                            <img src="{{  asset('storage/' . $user->picture) }}" alt="Profile Picture" class="img-fluid rounded" style="max-width: 50px; height: auto;">
+                                        @if ($patient->picture)
+                                            <img src="{{  asset('storage/' . $patient->picture) }}" alt="Profile Picture" class="img-fluid rounded" style="max-width: 50px; height: auto;">
                                         @else
                                             <img src="{{ asset('path/to/default/profile.png') }}" alt="Profile Picture" class="img-fluid rounded" style="max-width: 50px; height: auto;">
                                         @endif
                                     </td>
-                                        <td>{{ $user->FirstName }} {{ $user->LastName }}</td>
-                                        <td>{{ $user->email }}</td>
+                                        <td>{{ $patient->FirstName }} {{ $patient->LastName }} {{$patient->id}}</td>
+                                        <td>{{ $patient->email }}</td>
                                         <td>
                                             <span class="badge
-                                                @if ($user->role === 'Admin') badge-primary
-                                                @elseif ($user->role === 'Editor') badge-secondary
-                                                @elseif ($user->role === 'Viewer') badge-success
+                                                @if ($patient->role === 'Admin') badge-primary
+                                                @elseif ($patient->role === 'Editor') badge-secondary
+                                                @elseif ($patient->role === 'Viewer') badge-success
                                                 @else badge-info
                                                 @endif">
-                                                {{ $user->role }}
+                                                {{ $patient->role }}
                                             </span>
                                         </td>
-                                        <td>{{ \Carbon\Carbon::parse($user->created_at)->toDateString() }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($patient->created_at)->toDateString() }}</td>
                                         <td>
                                             <div class="d-inline-flex align-items-center">
                                                 <!-- Edit Button -->
-                                                <a href="#" class="btn btn-sm btn-outline-secondary edit-user mr-1 mb-2" data-toggle="modal" data-target="#editUserModal{{ $user->Id }}" data-id="{{ $user->Id }}">
+                                
+                                                <a href="{{ route('admin.patient.edit', ['id' => $patient->Id]) }}" class="btn btn-sm btn-outline-secondary edit-user mr-1 mb-2" >
                                                     <i class="fas fa-pencil-alt"></i>
                                                 </a>
+                                                <!-- admin.patient.edit -->
 
                                                 <!-- Delete Button -->
-                                                <form action="{{ route('users.destroy', $user->Id) }}" method="POST" class="delete-form mt-2">
+                                                <form action="{{ route('admin.patient.destroy', $patient->Id) }}" method="POST" class="delete-form mt-2">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-sm btn-outline-danger">
@@ -112,51 +114,6 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <!-- Edit User Modal -->
-                                    <div class="modal fade" id="editUserModal{{ $user->Id }}" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel{{ $user->Id }}" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <form id="editUserForm{{ $user->Id }}" action="{{ route('users.update', $user->Id) }}" method="POST" enctype="multipart/form-data">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="editUserModalLabel{{ $user->Id }}">Edit User</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <input type="hidden" name="id" value="{{ $user->Id }}">
-                                                        <div class="form-group">
-                                                            <label for="editUserName{{ $user->Id }}">Name</label>
-                                                            <input type="text" class="form-control" id="editUserName{{ $user->Id }}" name="name" value="{{ $user->name }}" required>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="editUserEmail{{ $user->Id }}">Email</label>
-                                                            <input type="email" class="form-control" id="editUserEmail{{ $user->Id }}" name="email" value="{{ $user->email }}" required>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="editUserRole{{ $user->Id }}">Role</label>
-                                                            <select class="form-control" id="editUserRole{{ $user->Id }}" name="role" required>
-                                                                <option value="Admin" {{ $user->role === 'Admin' ? 'selected' : '' }}>Admin</option>
-                                                                <option value="Editor" {{ $user->role === 'Editor' ? 'selected' : '' }}>Editor</option>
-                                                                <option value="Viewer" {{ $user->role === 'Viewer' ? 'selected' : '' }}>Viewer</option>
-                                                                <!-- Add more options as needed -->
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="editUserPicture{{ $user->Id }}">Profile Picture</label>
-                                                            <input type="file" class="form-control-file" id="editUserPicture{{ $user->Id }}" name="picture">
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        <button type="submit" class="btn btn-primary">Save changes</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
                                 @endforeach
                             </tbody>
                         </table>
