@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Admin;
-use App\Models\User;
+use App\Models\Patient;
 
 
 class PatientController extends Controller
@@ -14,10 +14,40 @@ class PatientController extends Controller
     public function showProfile()
     {
         // auth()->user();
-        $users = User::all(); // You might want to paginate or filter users
+        $Patients = Patient::all();
 
         // Pass the admin data to the profile view
-        return view('admin.patient.list', [ 'users' => $users ]);
+        return view('admin.patient.list', [ 'patients' => $Patients ]);
         // return view('admin.patient.list');
     }
+
+    public function createForm()
+    {
+        // dd("okay");
+        // auth()->user();
+        // $Patients = Patient::all();
+
+        // Pass the admin data to the profile view
+        return view('admin.patient.create');
+        // return view('admin.patient.list');
+    }
+
+    public function store(Request $request)
+    {
+
+
+        // dd($request->FirstName);
+
+        $addData = [
+            "FirstName" => $request->FirstName,
+            "MobileNo" => '838383838',
+            "HospitalId" => 1,
+        ];
+
+        Patient::create($addData);
+        return redirect()->route('admin.patient');
+    }
+    
+
+    
 }

@@ -34,3 +34,8 @@ Route::get('/admin/patient', [PatientController::class, 'showProfile'])->name('a
 Route::get('/admin/doctor', [DoctorController::class, 'showProfile'])->name('admin.doctor');
 Route::get('/admin/prescription', [PrescriptionController::class, 'showProfile'])->name('admin.prescription');
 
+Route::get('/admin/patient/add', [PatientController::class, 'createForm'])->name('admin.patient.add');
+// Route::get('/admin/doctor/add', [DoctorController::class, 'createForm'])->name('admin.doctor-add');
+// Route::get('/admin/prescription/add', [PrescriptionController::class, 'createForm'])->name('admin.prescription-add');
+
+Route::post('/admin/patient/add', [PatientController::class, 'store'])->name('admin.patient.store');

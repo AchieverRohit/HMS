@@ -103,13 +103,13 @@
                     </li>
                     <li class="nav-item nav-profile dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                            @if ($LoggedAdminInfo->picture)
+                            
 
                             <img src="{{ asset('/images/profile_pictures/profile.webp') }}">
 
-                            @else
-                            <p>Admin Picture not available</p>
-                            @endif
+                           
+                            <!-- <p>Admin Picture not available</p> -->
+                          
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown"
                             aria-labelledby="profileDropdown">

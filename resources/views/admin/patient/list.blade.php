@@ -12,12 +12,12 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h4 class="card-title mb-0">Patient Table</h4>
-                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addUserModal">
+                        <a href="{{ route('admin.patient.add') }}" class="btn btn-sm btn-primary">
                             <i class="fas fa-user-plus"></i> Add User
-                        </button>
+                        </a>
                     </div>
                     <!-- Add User Modal -->
-                    <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
+                    <!-- <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <form id="addUserForm" method="post" action="{{ route('users.store') }}" enctype="multipart/form-data">
@@ -44,7 +44,6 @@
                                                 <option value="Admin">Admin</option>
                                                 <option value="Editor">Editor</option>
                                                 <option value="Viewer">Viewer</option>
-                                                <!-- Add more options as needed -->
                                             </select>
                                         </div>
                                         <div class="form-group">
@@ -59,7 +58,7 @@
                                 </form>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
@@ -73,7 +72,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($users as $user)
+                                @foreach ($patients as $user)
                                     <tr>
                                     <td class="py-1">
                                         @if ($user->picture)
@@ -82,7 +81,7 @@
                                             <img src="{{ asset('path/to/default/profile.png') }}" alt="Profile Picture" class="img-fluid rounded" style="max-width: 50px; height: auto;">
                                         @endif
                                     </td>
-                                        <td>{{ $user->name }}</td>
+                                        <td>{{ $user->FirstName }} {{ $user->LastName }}</td>
                                         <td>{{ $user->email }}</td>
                                         <td>
                                             <span class="badge
