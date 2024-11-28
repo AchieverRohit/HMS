@@ -11,7 +11,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h4 class="card-title mb-0">Patient Table</h4>
+                        <h4 class="card-title mb-0">Users Table</h4>
                         <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addUserModal">
                             <i class="fas fa-user-plus"></i> Add User
                         </button>
@@ -98,12 +98,12 @@
                                         <td>
                                             <div class="d-inline-flex align-items-center">
                                                 <!-- Edit Button -->
-                                                <a href="#" class="btn btn-sm btn-outline-secondary edit-user mr-1 mb-2" data-toggle="modal" data-target="#editUserModal{{ $user->Id }}" data-id="{{ $user->Id }}">
+                                                <a href="#" class="btn btn-sm btn-outline-secondary edit-user mr-1 mb-2" data-toggle="modal" data-target="#editUserModal{{ $user->id }}" data-id="{{ $user->id }}">
                                                     <i class="fas fa-pencil-alt"></i>
                                                 </a>
 
                                                 <!-- Delete Button -->
-                                                <form action="{{ route('users.destroy', $user->Id) }}" method="POST" class="delete-form mt-2">
+                                                <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="delete-form mt-2">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-sm btn-outline-danger">
@@ -114,31 +114,31 @@
                                         </td>
                                     </tr>
                                     <!-- Edit User Modal -->
-                                    <div class="modal fade" id="editUserModal{{ $user->Id }}" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel{{ $user->Id }}" aria-hidden="true">
+                                    <div class="modal fade" id="editUserModal{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel{{ $user->id }}" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
-                                                <form id="editUserForm{{ $user->Id }}" action="{{ route('users.update', $user->Id) }}" method="POST" enctype="multipart/form-data">
+                                                <form id="editUserForm{{ $user->id }}" action="{{ route('users.update', $user->id) }}" method="POST" enctype="multipart/form-data">
                                                     @csrf
                                                     @method('PUT')
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="editUserModalLabel{{ $user->Id }}">Edit User</h5>
+                                                        <h5 class="modal-title" id="editUserModalLabel{{ $user->id }}">Edit User</h5>
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <input type="hidden" name="id" value="{{ $user->Id }}">
+                                                        <input type="hidden" name="id" value="{{ $user->id }}">
                                                         <div class="form-group">
-                                                            <label for="editUserName{{ $user->Id }}">Name</label>
-                                                            <input type="text" class="form-control" id="editUserName{{ $user->Id }}" name="name" value="{{ $user->name }}" required>
+                                                            <label for="editUserName{{ $user->id }}">Name</label>
+                                                            <input type="text" class="form-control" id="editUserName{{ $user->id }}" name="name" value="{{ $user->name }}" required>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="editUserEmail{{ $user->Id }}">Email</label>
-                                                            <input type="email" class="form-control" id="editUserEmail{{ $user->Id }}" name="email" value="{{ $user->email }}" required>
+                                                            <label for="editUserEmail{{ $user->id }}">Email</label>
+                                                            <input type="email" class="form-control" id="editUserEmail{{ $user->id }}" name="email" value="{{ $user->email }}" required>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="editUserRole{{ $user->Id }}">Role</label>
-                                                            <select class="form-control" id="editUserRole{{ $user->Id }}" name="role" required>
+                                                            <label for="editUserRole{{ $user->id }}">Role</label>
+                                                            <select class="form-control" id="editUserRole{{ $user->id }}" name="role" required>
                                                                 <option value="Admin" {{ $user->role === 'Admin' ? 'selected' : '' }}>Admin</option>
                                                                 <option value="Editor" {{ $user->role === 'Editor' ? 'selected' : '' }}>Editor</option>
                                                                 <option value="Viewer" {{ $user->role === 'Viewer' ? 'selected' : '' }}>Viewer</option>
@@ -146,8 +146,8 @@
                                                             </select>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="editUserPicture{{ $user->Id }}">Profile Picture</label>
-                                                            <input type="file" class="form-control-file" id="editUserPicture{{ $user->Id }}" name="picture">
+                                                            <label for="editUserPicture{{ $user->id }}">Profile Picture</label>
+                                                            <input type="file" class="form-control-file" id="editUserPicture{{ $user->id }}" name="picture">
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">

@@ -157,6 +157,30 @@
                     </li>
 
                     <li class="nav-item">
+                        <a class="nav-link {{ Route::is('admin.patient') ? 'active' : '' }}"
+                            href="{{ route('admin.patient') }}">
+                            <i class="icon-layout menu-icon"></i>
+                            <span class="menu-title">Patients</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{ Route::is('admin.doctor') ? 'active' : '' }}"
+                            href="{{ route('admin.doctor') }}">
+                            <i class="icon-layout menu-icon"></i>
+                            <span class="menu-title">Doctors</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{ Route::is('admin.prescription') ? 'active' : '' }}"
+                            href="{{ route('admin.prescription') }}">
+                            <i class="icon-layout menu-icon"></i>
+                            <span class="menu-title">prescription</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
                         <a class="nav-link {{ request()->is('admin/user*') ? 'active' : '' }}" data-toggle="collapse"
                             href="#form-elements" aria-expanded="false" aria-controls="form-elements">
                             <i class="icon-columns menu-icon"></i>

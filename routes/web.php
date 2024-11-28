@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\PatientController;
+use App\Http\Controllers\PrescriptionController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -26,3 +29,8 @@ Route::get('/admin/register', [AdminController::class, 'showRegister'])->name('a
 Route::post('/admin/register', [AdminController::class, 'register'])->name('admin.register.submit');
 Route::get('/admin/dashboard', [AdminController::class, 'showDashboard'])->name('admin.dashboard');
 Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
+
+Route::get('/admin/patient', [PatientController::class, 'showProfile'])->name('admin.patient');
+Route::get('/admin/doctor', [DoctorController::class, 'showProfile'])->name('admin.doctor');
+Route::get('/admin/prescription', [PrescriptionController::class, 'showProfile'])->name('admin.prescription');
+
