@@ -11,7 +11,8 @@
                     <div class="card shadow">
                         <div class="card-body">
                             <h4 class="card-title">Add Patient</h4>
-                            <form action="{{ route('admin.patient.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('admin.patient.store', ['PatientNo' => $PatientNo]) }}" method="POST"
+                                enctype="multipart/form-data">
                                 @csrf
                                 <div class="container">
                                     <!-- Row 1: First Name and Last Name -->
@@ -65,8 +66,8 @@
                                     <!-- Row 4: Gender and File Upload -->
                                     <div class="row mt-2">
                                         <div class="col-md-3">
-                                            <label for="gender" class="form-label">Gender</label>
-                                            <select id="gender" name="gender" class="form-control" required>
+                                            <label for="Gender" class="form-label">Gender</label>
+                                            <select id="Gender" name="Gender" class="form-control" required>
                                                 <option value="" disabled selected>Select Gender</option>
                                                 <option value="Male">Male</option>
                                                 <option value="Female">Female</option>
@@ -93,9 +94,10 @@
                                         <h5>System Generated PatientNo {{ $PatientNo }}</h5>
                                     </div>
                                     <!-- Submit Button -->
-                                    <div class="row">
-                                        <div class="col-md-4 mt-3 offset-4">
-                                            <button type="submit" class="btn btn-primary w-100">Add Patient</button>
+                                    <div class="row mt-4">
+                                        <div class="col-md-12 text-center">
+                                            <button type="submit" class="btn btn-primary w-25 fw-bolder">Add
+                                                Patient</button>
                                         </div>
                                     </div>
                                 </div>

@@ -11,86 +11,58 @@
                     <div class="card shadow">
                         <div class="card-body">
                             <h4 class="card-title">Add Patient</h4>
-                            <form action="{{ route('admin.patient.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('admin.appointment.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="container">
                                     <!-- Row 1: First Name and Last Name -->
                                     <div class="row mt-2">
                                         <div class="col-md-6">
-                                            <label for="FirstName" class="form-label">First Name</label>
-                                            <input type="text" id="FirstName" name="FirstName" class="form-control"
-                                                placeholder="First Name (Hitesh)" required>
+                                            <label for="AppointmentTokenNo" class="form-label">Appointment Token No</label>
+                                            <input type="number" id="AppointmentTokenNo" name="AppointmentTokenNo"
+                                                class="form-control" placeholder="AppointmentTokenNo (7)" required>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="LastName" class="form-label">Last Name</label>
-                                            <input type="text" id="LastName" name="LastName" class="form-control"
-                                                placeholder="Last Name (Ahire)" required>
+                                            <label for="DateTime" class="form-label">Date and Time</label>
+                                            <input type="datetime-local" id="DateTime" name="DateTime" class="form-control"
+                                                placeholder="Date Time " required>
                                         </div>
                                     </div>
 
                                     <!-- Row 2: Email and Phone -->
                                     <div class="row mt-2">
                                         <div class="col-md-6">
-                                            <label for="Email" class="form-label">Email</label>
-                                            <input type="Email" id="Email" name="Email" class="form-control"
-                                                placeholder="Email (hitesh@gmail.com)">
+                                            <label for="Doctor" class="form-label">Select Doctor</label>
+                                            <select id="Doctor" name="DoctorId" class="form-control" required>
+                                                <option value="" disabled selected>Select a Doctor</option>
+                                                @foreach ($doctors as $doctor)
+                                                    <option value="{{ $doctor->Id }}">{{ $doctor->Designation }}
+                                                        {{ $doctor->Qualification }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="MobileNo" class="form-label">Phone</label>
-                                            <input type="tel id="MobileNo" name="MobileNo" class="form-control"
-                                                placeholder="Mobile No. (8888888888)" required>
+                                            <label for="Duration" class="form-label">Duration ( min.)</label>
+                                            <input type="number" id="Duration" name="Duration" class="form-control"
+                                                placeholder="30 min" required>
                                         </div>
                                     </div>
 
                                     <!-- Row 3: Address and Date of Birth -->
                                     <div class="row  mt-2">
-                                        <div class="col-md-3">
-                                            <label for="Age" class="form-label">Age</label>
-                                            <input type="text" id="Age" name="Age" class="form-control"
-                                                placeholder="Age (24)">
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label for="Dob" class="form-label">Date of Birth</label>
-                                            <input type="date" id="Dob" name="Dob" class="form-control"
-                                                placeholder="Dob (21-12-1998)">
-                                        </div>
                                         <div class="col-md-6">
-                                            <label for="Address" class="form-label">Address</label>
-                                            <input type="text" id="Address" name="Address" class="form-control"
-                                                placeholder="Address (Indira Nagar)" required>
-                                        </div>
-
-                                    </div>
-
-                                    <!-- Row 4: Gender and File Upload -->
-                                    <div class="row mt-2">
-                                        <div class="col-md-3">
-                                            <label for="gender" class="form-label">Gender</label>
-                                            <select id="gender" name="gender" class="form-control" required>
-                                                <option value="" disabled selected>Select Gender</option>
-                                                <option value="Male">Male</option>
-                                                <option value="Female">Female</option>
-                                                <option value="Other">Other</option>
+                                            <label for="Service" class="form-label">Select Service</label>
+                                            <select id="Service" name="ServiceId" class="form-control" required>
+                                                <option value="" disabled selected>Select a Service</option>
+                                                @foreach ($services as $service)
+                                                    <option value="{{ $service->id }}">{{ $service->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
-                                        <div class="col-md-3">
-                                            <label for="BloodGroup" class="form-label">Blood Group</label>
-                                            <input type="text" id="BloodGroup" name="BloodGroup" class="form-control"
-                                                placeholder="Blood Group (B+)">
+                                        <div class="col-md-6">
+                                            <label for="ReffernceBy" class="form-label">Reffernce By</label>
+                                            <input type="text" id="ReffernceBy" name="ReffernceBy" class="form-control"
+                                                placeholder="Reffernce By">
                                         </div>
-                                        <div class="col-md-3">
-                                            <label for="Pin" class="form-label">Pin</label>
-                                            <input type="text" id="Pin" name="Pin" class="form-control"
-                                                placeholder="Pin (423202)">
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label for="City" class="form-label">City</label>
-                                            <input type="text" id="City" name="City" class="form-control"
-                                                placeholder="City (Nashik)">
-                                        </div>
-                                    </div>
-                                    <div class="row mt-3">
-                                        <h5>System Generated PatientNo {{ $PatientNo }}</h5>
                                     </div>
                                     <!-- Submit Button -->
                                     <div class="row">
