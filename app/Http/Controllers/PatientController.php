@@ -1,23 +1,26 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Admin;
 use App\Models\Patient;
+use App\Models\Doctor;
 
 
 class PatientController extends Controller
 {
-    public function showProfile()
+    public function showList()
     {
         // auth()->user();
         $Patients = Patient::all();
 
+
         // Pass the admin data to the profile view
-        return view('admin.patient.list', [ 'patients' => $Patients ]);
+        return view('admin.patient.list', ['patients' => $Patients]);
         // return view('admin.patient.list');
     }
 
@@ -27,8 +30,12 @@ class PatientController extends Controller
         // auth()->user();
         // $Patients = Patient::all();
 
-        // Pass the admin data to the profile view
-        return view('admin.patient.create');
+        $lastPatient = Patient::orderBy('PatientNo', 'desc')->first();
+
+        // Calculate the new PatientNo (PatientNo + 1)
+        $PatientNo = $lastPatient ? $lastPatient->PatientNo + 1 : 1;
+
+        return view('admin.patient.create', compact('PatientNo'));
         // return view('admin.patient.list');
     }
 
@@ -36,16 +43,30 @@ class PatientController extends Controller
     {
         // dd($request->FirstName);
 
-        $addData = [
-            "FirstName" => $request->FirstName,
-            "MobileNo" => '838383838',
-            "HospitalId" => 1,
-        ];
+        $patient = new Patient();
 
-        Patient::create($addData);
-        return redirect()->route('admin.patient');
+        // Assign values to the patient model
+        $patient->FirstName = $request->FirstName;
+        $patient->LastName = $request->LastName;
+        $patient->Email = $request->Email;
+        $patient->MobileNo = $request->MobileNo;
+        $patient->Address = $request->Address;
+        $patient->Dob = $request->Dob;
+        $patient->Gender = $request->Gender;
+        $patient->Age = $request->Age;
+        $patient->BloodGroup = $request->BloodGroup;
+        $patient->City = $request->City;
+        $patient->Pin = $request->Pin;
+        $patient->HospitalId = 1;
+        $patient->PatientNo = $request->input('PatientNo');
+
+        $doctors = Doctor::all();
+        $services = Service::all();
+
+        $patient->save();
+        return redirect()->route('admin.appointment.add', compact('doctors', 'services'));
     }
-    
+
     public function editForm($id)
     {
         $patient = Patient::where('Id', $id)->first();
@@ -56,30 +77,29 @@ class PatientController extends Controller
 
     public function update(Request $request, $id)
     {
-        // Find the patient by ID
-        // $patient = Patient::find($id);
-        // // If the patient doesn't exist, redirect with an error
-        // if (!$patient) {
-        //     return redirect()->route('admin.patient.list')->with('error', 'Patient not found.');
-        // }
-        // dd($request->FirstName);
-    
+
         // Prepare the data to update
         $updateData = [
             'FirstName' => $request->FirstName,
+            'LastName' => $request->LastName,
+            'Email' => $request->Email,
+            'MobileNo' => $request->MobileNo,
+            'Address' => $request->Address,
+            'Dob' => $request->Dob,
+            'Gender' => $request->Gender,
+            'Age' => $request->Age,
+            'BloodGroup' => $request->BloodGroup,
+            'City' => $request->City,
+            'Pin' => $request->Pin,
         ];
-        
+
         // Assuming you have the patient ID
         $patient = Patient::where('Id', $id)->update($updateData);  // or Patient::findOrFail($request->id);
-        // dd($patient);
-        // if ($patient) {
-        //     $patient->update($updateData);
-        // }
-    
+
         // Redirect to the updated patient details page
         return redirect()->route('admin.patient')->with('success', 'Patient updated successfully!');
     }
-    
+
     public function destroy($id)
     {
         // $patient = Patient::findOrFail($id);
@@ -89,6 +109,6 @@ class PatientController extends Controller
         return redirect()->route('admin.patient')->with('success', 'User deleted successfully.');
     }
 
-    
-    
+
+
 }

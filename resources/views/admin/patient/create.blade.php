@@ -1,83 +1,106 @@
 @extends('layouts.admin')
 
-@section('title', 'Admin Dashboard')
+@section('title', 'Add Patient')
 
 @section('content')
 
-<div class="main-panel">
-    <div class="content-wrapper">
+    <div class="main-panel">
         <div class="content-wrapper">
             <div class="row">
-
                 <div class="col-md-12">
-                    <div class="card">
+                    <div class="card shadow">
                         <div class="card-body">
-                            <h4 class="card-title">Create Patient</h4>
-                            <form action="{{ route('admin.patient.add') }}" method="POST"
+                            <h4 class="card-title">Add Patient</h4>
+                            <form action="{{ route('admin.patient.store', ['PatientNo' => $PatientNo]) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <div class="container">
-                                    <div class="row g-3 align-items-center">
-                                        <div class="col-md-12 d-flex justify-content-between gap-3">
-                                            <div class="flex-grow-1">
-                                                <label for="name1" class="form-label">Name 1</label>
-                                                <input type="text" id="FirstName" name="FirstName" class="form-control" value="" required>
-                                            </div>
-                                            <div class="flex-grow-1 ml-3">
-                                                <label for="email">Email</label>
-                                                <input disabled type="email" id="email" name="email"
-                                                    class="form-control" value="">
-                                            </div>
+                                    <!-- Row 1: First Name and Last Name -->
+                                    <div class="row mt-2">
+                                        <div class="col-md-6">
+                                            <label for="FirstName" class="form-label">First Name</label>
+                                            <input type="text" id="FirstName" name="FirstName" class="form-control"
+                                                placeholder="First Name (Hitesh)" required>
                                         </div>
-                                        <div class="col-md-12 d-flex justify-content-between gap-3">
-                                            <div class="flex-grow-1">
-                                                <label for="name1" class="form-label">Name 1</label>
-                                                <input type="text" id="name1" name="name1" class="form-control" value="">
-                                            </div>
-                                            <div class="flex-grow-1 ml-3">
-                                                <label for="email">Email</label>
-                                                <input disabled type="email" id="email" name="email"
-                                                    class="form-control" value="">
-                                            </div>
+                                        <div class="col-md-6">
+                                            <label for="LastName" class="form-label">Last Name</label>
+                                            <input type="text" id="LastName" name="LastName" class="form-control"
+                                                placeholder="Last Name (Ahire)" required>
                                         </div>
-                                        <div class="col-md-12 d-flex justify-content-between gap-3">
-                                            <div class="flex-grow-1">
-                                                <label for="name1" class="form-label">Name 1</label>
-                                                <input type="text" id="name1" name="name1" class="form-control" value="">
-                                            </div>
-                                            <div class="flex-grow-1 ml-3">
-                                                <label for="email">Email</label>
-                                                <input disabled type="email" id="email" name="email"
-                                                    class="form-control" value="">
-                                            </div>
+                                    </div>
+
+                                    <!-- Row 2: Email and Phone -->
+                                    <div class="row mt-2">
+                                        <div class="col-md-6">
+                                            <label for="Email" class="form-label">Email</label>
+                                            <input type="Email" id="Email" name="Email" class="form-control"
+                                                placeholder="Email (hitesh@gmail.com)">
                                         </div>
-                                        <div class="col-md-12 d-flex justify-content-between gap-3">
-                                            <div class="flex-grow-1">
-                                                <label for="name1" class="form-label">Name 1</label>
-                                                <input type="text" id="name1" name="name1" class="form-control" value="">
-                                            </div>
-                                            <div class="flex-grow-1 ml-3">
-                                                <label for="email">Email</label>
-                                                <input disabled type="email" id="email" name="email"
-                                                    class="form-control" value="">
-                                            </div>
+                                        <div class="col-md-6">
+                                            <label for="MobileNo" class="form-label">Phone</label>
+                                            <input type="tel id="MobileNo" name="MobileNo" class="form-control"
+                                                placeholder="Mobile No. (8888888888)" required>
+                                        </div>
+                                    </div>
+
+                                    <!-- Row 3: Address and Date of Birth -->
+                                    <div class="row  mt-2">
+                                        <div class="col-md-3">
+                                            <label for="Age" class="form-label">Age</label>
+                                            <input type="text" id="Age" name="Age" class="form-control"
+                                                placeholder="Age (24)">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="Dob" class="form-label">Date of Birth</label>
+                                            <input type="date" id="Dob" name="Dob" class="form-control"
+                                                placeholder="Dob (21-12-1998)">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="Address" class="form-label">Address</label>
+                                            <input type="text" id="Address" name="Address" class="form-control"
+                                                placeholder="Address (Indira Nagar)" required>
+                                        </div>
+
+                                    </div>
+
+                                    <!-- Row 4: Gender and File Upload -->
+                                    <div class="row mt-2">
+                                        <div class="col-md-3">
+                                            <label for="Gender" class="form-label">Gender</label>
+                                            <select id="Gender" name="Gender" class="form-control" required>
+                                                <option value="" disabled selected>Select Gender</option>
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                                <option value="Other">Other</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="BloodGroup" class="form-label">Blood Group</label>
+                                            <input type="text" id="BloodGroup" name="BloodGroup" class="form-control"
+                                                placeholder="Blood Group (B+)">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="Pin" class="form-label">Pin</label>
+                                            <input type="text" id="Pin" name="Pin" class="form-control"
+                                                placeholder="Pin (423202)">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="City" class="form-label">City</label>
+                                            <input type="text" id="City" name="City" class="form-control"
+                                                placeholder="City (Nashik)">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <h5>System Generated PatientNo {{ $PatientNo }}</h5>
+                                    </div>
+                                    <!-- Submit Button -->
+                                    <div class="row mt-4">
+                                        <div class="col-md-12 text-center">
+                                            <button type="submit" class="btn btn-primary w-25 fw-bolder">Add
+                                                Patient</button>
                                         </div>
                                     </div>
                                 </div>
-                                
-                                <div class="form-group">
-                                    <label for="bio">Bio</label>
-                                    <textarea id="bio" name="bio"
-                                        class="form-control">hvdfbjdfvbj,</textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label for="picture">Profile Picture</label>
-                                    <input type="file" id="picture" name="picture"
-                                        class="form-control-file">
-                                </div>
-                                <!-- Add more fields (image upload, etc.) as needed -->
-
-                                <button type="submit" class="btn btn-primary">Submit</button>
                             </form>
                         </div>
                     </div>
@@ -85,10 +108,5 @@
             </div>
         </div>
     </div>
-    <!-- content-wrapper ends -->
-    <!-- partial:partials/_footer.html -->
-
-    <!-- partial -->
-</div>
 
 @endsection

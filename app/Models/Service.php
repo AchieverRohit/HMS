@@ -9,6 +9,7 @@ class Service extends Model
 {
     use HasFactory;
 
+    protected $table = 'service';
     protected $fillable = ['ServiceName', 'Amount'];
 
     // Relationships
