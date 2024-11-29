@@ -42,6 +42,21 @@ class PatientController extends Controller
     public function store(Request $request)
     {
         // dd($request->FirstName);
+        $validated = $request->validate([
+            'FirstName' => 'required|string|max:255',
+            'LastName' => 'required|string|max:255',
+            'Email' => 'required|email|max:255',
+            'MobileNo' => 'required|digits:10',
+            'Address' => 'required|string|max:255',
+            'Dob' => 'required|date',
+            'Gender' => 'required|string|max:10',
+            'Age' => 'required|integer|min:1',
+            'BloodGroup' => 'required|string|max:5',
+            'City' => 'required|string|max:255',
+            'Pin' => 'required|numeric|digits:6',
+            // 'PatientNo' => 'required|string|max:50|unique:patients,PatientNo', // Assuming PatientNo is unique
+        ]);
+
 
         $patient = new Patient();
 
@@ -64,7 +79,8 @@ class PatientController extends Controller
         $services = Service::all();
 
         $patient->save();
-        return redirect()->route('admin.appointment.add', compact('doctors', 'services'));
+
+        return redirect()->route('admin.patient')->with('success', 'Patient updated successfully!');
     }
 
     public function editForm($id)

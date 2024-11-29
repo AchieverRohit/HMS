@@ -10,22 +10,33 @@
                 <div class="col-md-12">
                     <div class="card shadow">
                         <div class="card-body">
-                            <h4 class="card-title">Add Patient</h4>
-                            <form action="{{ route('admin.patient.store', ['PatientNo' => $PatientNo]) }}" method="POST"
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h4 class="card-title mb-0">Add Patient</h4>
+                                <a href="{{ route('admin.patient') }}" class="btn btn-sm btn-primary">
+                                     <-  Back
+                                </a>
+                            </div>
+                            <form id="addPatientForm" action="{{ route('admin.patient.store', ['PatientNo' => $PatientNo]) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <div class="container">
                                     <!-- Row 1: First Name and Last Name -->
                                     <div class="row mt-2">
                                         <div class="col-md-6">
-                                            <label for="FirstName" class="form-label">First Name</label>
+                                            <label for="FirstName" class="form-label">First Name<span style="color: red;">*</span></label>
                                             <input type="text" id="FirstName" name="FirstName" class="form-control"
-                                                placeholder="First Name (Hitesh)" required>
+                                                placeholder="First Name (Hitesh)" value="{{ old('FirstName') }}" oninput="clearError()">
+                                                @error('FirstName')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="LastName" class="form-label">Last Name</label>
-                                            <input type="text" id="LastName" name="LastName" class="form-control"
-                                                placeholder="Last Name (Ahire)" required>
+                                            <label for="LastName" class="form-label">Last Name<span style="color: red;">*</span></label>
+                                            <input type="text" id="LastName" name="LastName" class="form-control" value="{{ old('LastName') }}"
+                                                placeholder="Last Name (Ahire)">
+                                                @error('LastName')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
                                         </div>
                                     </div>
 
@@ -37,9 +48,12 @@
                                                 placeholder="Email (hitesh@gmail.com)">
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="MobileNo" class="form-label">Phone</label>
-                                            <input type="tel id="MobileNo" name="MobileNo" class="form-control"
-                                                placeholder="Mobile No. (8888888888)" required>
+                                            <label for="MobileNo" class="form-label">Phone<span style="color: red;">*</span></label>
+                                            <input type="number" id="MobileNo" name="MobileNo" class="form-control"
+                                                placeholder="Mobile No. (8888888888)" value="{{ old('MobileNo') }}">
+                                                @error('MobileNo')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
                                         </div>
                                     </div>
 
@@ -47,7 +61,7 @@
                                     <div class="row  mt-2">
                                         <div class="col-md-3">
                                             <label for="Age" class="form-label">Age</label>
-                                            <input type="text" id="Age" name="Age" class="form-control"
+                                            <input type="number" id="Age" name="Age" class="form-control"
                                                 placeholder="Age (24)">
                                         </div>
                                         <div class="col-md-3">
@@ -58,7 +72,7 @@
                                         <div class="col-md-6">
                                             <label for="Address" class="form-label">Address</label>
                                             <input type="text" id="Address" name="Address" class="form-control"
-                                                placeholder="Address (Indira Nagar)" required>
+                                                placeholder="Address (Indira Nagar)">
                                         </div>
 
                                     </div>
@@ -67,7 +81,7 @@
                                     <div class="row mt-2">
                                         <div class="col-md-3">
                                             <label for="Gender" class="form-label">Gender</label>
-                                            <select id="Gender" name="Gender" class="form-control" required>
+                                            <select id="Gender" name="Gender" class="form-control">
                                                 <option value="" disabled selected>Select Gender</option>
                                                 <option value="Male">Male</option>
                                                 <option value="Female">Female</option>
@@ -81,7 +95,7 @@
                                         </div>
                                         <div class="col-md-3">
                                             <label for="Pin" class="form-label">Pin</label>
-                                            <input type="text" id="Pin" name="Pin" class="form-control"
+                                            <input type="number" id="Pin" name="Pin" class="form-control"
                                                 placeholder="Pin (423202)">
                                         </div>
                                         <div class="col-md-3">
@@ -93,10 +107,12 @@
                                     <div class="row mt-3">
                                         <h5>System Generated PatientNo {{ $PatientNo }}</h5>
                                     </div>
-                                    <!-- Submit Button -->
+                                    <!-- Submit & Reset Button -->
                                     <div class="row mt-4">
                                         <div class="col-md-12 text-center">
-                                            <button type="submit" class="btn btn-primary w-25 fw-bolder">Add
+                                            <button id="resetButton" type="button" class="btn btn-secondary">
+                                                Reset</button>
+                                            <button type="submit" class="btn btn-primary">Add
                                                 Patient</button>
                                         </div>
                                     </div>
@@ -108,5 +124,23 @@
             </div>
         </div>
     </div>
+    <script>
+        document.getElementById('resetButton').addEventListener('click', function(e) {
+            e.preventDefault();
+            const form = document.getElementById('addPatientForm');
+            form.reset();
+        });
+    </script>
+    <script>
+        const inputFields = document.querySelectorAll('#FirstName, #LastName, #MobileNo');
+        inputFields.forEach(function(input) {
+            input.addEventListener('input', function() {
+                let errorElement = input.closest('.col-md-6').querySelector('.text-danger');
+                if (errorElement) {
+                    errorElement.remove();
+                }
+            });
+        });
+    </script>
 
 @endsection

@@ -16,49 +16,6 @@
                                     <i class="fas fa-user-plus"></i> Add User
                                 </a>
                             </div>
-                            <!-- Add User Modal -->
-                            <!-- <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
-                                                                        <div class="modal-dialog" role="document">
-                                                                            <div class="modal-content">
-                                                                                <form id="addUserForm" method="post" action="{{ route('users.store') }}" enctype="multipart/form-data">
-                                                                                    @csrf
-                                                                                    <div class="modal-header">
-                                                                                        <h5 class="modal-title" id="addUserModalLabel">Add User</h5>
-                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                            <span aria-hidden="true">&times;</span>
-                                                                                        </button>
-                                                                                    </div>
-                                                                                    <div class="modal-body">
-                                                                                        <div class="form-group">
-                                                                                            <label for="userName">Name</label>
-                                                                                            <input type="text" class="form-control" id="userName" name="name" required>
-                                                                                        </div>
-                                                                                        <div class="form-group">
-                                                                                            <label for="userEmail">Email</label>
-                                                                                            <input type="email" class="form-control" id="userEmail" name="email" required>
-                                                                                        </div>
-                                                                                        <div class="form-group">
-                                                                                            <label for="userRole">Role</label>
-                                                                                            <select class="form-control" id="userRole" name="role" required>
-                                                                                                <option value="">Select Role</option>
-                                                                                                <option value="Admin">Admin</option>
-                                                                                                <option value="Editor">Editor</option>
-                                                                                                <option value="Viewer">Viewer</option>
-                                                                                            </select>
-                                                                                        </div>
-                                                                                        <div class="form-group">
-                                                                                            <label for="userPicture">Profile Picture</label>
-                                                                                            <input type="file" class="form-control-file" id="userPicture" name="picture">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="modal-footer">
-                                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                                        <button type="submit" class="btn btn-primary">Save User</button>
-                                                                                    </div>
-                                                                                </form>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div> -->
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
