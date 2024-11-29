@@ -11,13 +11,14 @@ use App\Models\Patient;
 
 class PatientController extends Controller
 {
-    public function showProfile()
+    public function showList()
     {
         // auth()->user();
         $Patients = Patient::all();
 
+
         // Pass the admin data to the profile view
-        return view('admin.patient.list', [ 'patients' => $Patients ]);
+        return view('admin.patient.list', ['patients' => $Patients]);
         // return view('admin.patient.list');
     }
 
@@ -27,8 +28,12 @@ class PatientController extends Controller
         // auth()->user();
         // $Patients = Patient::all();
 
-        // Pass the admin data to the profile view
-        return view('admin.patient.create');
+        $lastPatient = Patient::orderBy('PatientNo', 'desc')->first();
+
+        // Calculate the new PatientNo (PatientNo + 1)
+        $PatientNo = $lastPatient ? $lastPatient->PatientNo + 1 : 1;
+
+        return view('admin.patient.create', compact('PatientNo'));
         // return view('admin.patient.list');
     }
 
@@ -36,16 +41,27 @@ class PatientController extends Controller
     {
         // dd($request->FirstName);
 
-        $addData = [
-            "FirstName" => $request->FirstName,
-            "MobileNo" => '838383838',
-            "HospitalId" => 1,
-        ];
+        $patient = new Patient();
 
-        Patient::create($addData);
+        // Assign values to the patient model
+        $patient->FirstName = $request->FirstName;
+        $patient->LastName = $request->LastName;
+        $patient->Email = $request->Email;
+        $patient->MobileNo = $request->MobileNo;
+        $patient->Address = $request->Address;
+        $patient->Dob = $request->Dob;
+        $patient->Gender = $request->Gender;
+        $patient->Age = $request->Age;
+        $patient->BloodGroup = $request->BloodGroup;
+        $patient->City = $request->City;
+        $patient->Pin = $request->Pin;
+        $patient->HospitalId = 1;
+
+
+        $patient->save();
         return redirect()->route('admin.patient');
     }
-    
+
     public function editForm($id)
     {
         $patient = Patient::where('Id', $id)->first();
@@ -63,23 +79,23 @@ class PatientController extends Controller
         //     return redirect()->route('admin.patient.list')->with('error', 'Patient not found.');
         // }
         // dd($request->FirstName);
-    
+
         // Prepare the data to update
         $updateData = [
             'FirstName' => $request->FirstName,
         ];
-        
+
         // Assuming you have the patient ID
         $patient = Patient::where('Id', $id)->update($updateData);  // or Patient::findOrFail($request->id);
         // dd($patient);
         // if ($patient) {
         //     $patient->update($updateData);
         // }
-    
+
         // Redirect to the updated patient details page
         return redirect()->route('admin.patient')->with('success', 'Patient updated successfully!');
     }
-    
+
     public function destroy($id)
     {
         // $patient = Patient::findOrFail($id);
@@ -89,6 +105,6 @@ class PatientController extends Controller
         return redirect()->route('admin.patient')->with('success', 'User deleted successfully.');
     }
 
-    
-    
+
+
 }

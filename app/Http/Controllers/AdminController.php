@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Admin;
 use App\Models\User;
+use App\Models\Hospital;
+
 
 
 class AdminController extends Controller
@@ -63,11 +65,15 @@ class AdminController extends Controller
             return back()->withInput()->withErrors(['password' => 'Incorrect password']);
         }
 
+        $HospitalInfo = Hospital::where('Id', $adminInfo->HospitalId)->first();
         // Store admin ID in the session
         $request->session()->put('LoggedAdminInfo', $adminInfo->Id);
 
         // Redirect to the dashboard
-        return redirect()->route('admin.dashboard');
+        return view('admin.dashboard', [
+            'LoggedAdminInfo' => $adminInfo,
+            'HospitalInfo' => $HospitalInfo
+        ]);
     }
 
     public function showDashboard()

@@ -104,13 +104,13 @@
                     </li>
                     <li class="nav-item nav-profile dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                            
+
 
                             <img src="{{ asset('/images/profile_pictures/profile.webp') }}">
 
-                           
+
                             <!-- <p>Admin Picture not available</p> -->
-                          
+
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown"
                             aria-labelledby="profileDropdown">
@@ -162,6 +162,14 @@
                             href="{{ route('admin.patient') }}">
                             <i class="icon-layout menu-icon"></i>
                             <span class="menu-title">Patients</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{ Route::is('admin.appointment') ? 'active' : '' }}"
+                            href="{{ route('admin.appointment') }}">
+                            <i class="icon-layout menu-icon"></i>
+                            <span class="menu-title">Appointments</span>
                         </a>
                     </li>
 
@@ -231,7 +239,8 @@
                         </a>
                         <div class="collapse" id="charts">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="pages/charts/chartjs.html">ChartJs</a>
+                                <li class="nav-item"> <a class="nav-link"
+                                        href="pages/charts/chartjs.html">ChartJs</a>
                                 </li>
                             </ul>
                         </div>
@@ -259,7 +268,8 @@
                         </a>
                         <div class="collapse" id="icons">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="pages/icons/mdi.html">Mdi icons</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="pages/icons/mdi.html">Mdi icons</a>
+                                </li>
                             </ul>
                         </div>
                     </li>
@@ -274,7 +284,8 @@
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a>
                                 </li>
-                                <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register
+                                <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html">
+                                        Register
                                     </a></li>
                             </ul>
                         </div>
@@ -288,9 +299,11 @@
                         </a>
                         <div class="collapse" id="error">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="pages/samples/error-404.html"> 404 </a>
+                                <li class="nav-item"> <a class="nav-link" href="pages/samples/error-404.html"> 404
+                                    </a>
                                 </li>
-                                <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> 500 </a>
+                                <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> 500
+                                    </a>
                                 </li>
                             </ul>
                         </div>
@@ -308,8 +321,8 @@
             <!-- Main Content -->
             <!-- <div class="content"> -->
 
-                @yield('content')
-                
+            @yield('content')
+
             <!-- </div> -->
 
             <!-- Footer -->
