@@ -13,22 +13,33 @@ use App\Models\Doctor;
 
 class PatientController extends Controller
 {
-    public function showList()
+    // public function showList()
+    // {
+    //     $patients = Patient::paginate(10);
+    //     return view('admin.patient.list', ['patients' => $patients]);
+    // }
+    public function showList(Request $request)
     {
-        // auth()->user();
-        $Patients = Patient::all();
-
-
-        // Pass the admin data to the profile view
-        return view('admin.patient.list', ['patients' => $Patients]);
-        // return view('admin.patient.list');
+        $query = Patient::query();
+    
+        if ($request->has('search') && $request->search != '') {
+            $search = $request->search;
+            $query->whereRaw("CONCAT(FirstName, ' ', LastName) LIKE ?", ["%$search%"]);
+        }
+    
+        $patients = $query->paginate(10);
+    
+        $patients->appends(['search' => $request->search]);
+    
+        return view('admin.patient.list', [
+            'patients' => $patients,
+            'search' => $request->search,
+        ]);
     }
+
 
     public function createForm()
     {
-        // dd("okay");
-        // auth()->user();
-        // $Patients = Patient::all();
 
         $lastPatient = Patient::orderBy('PatientNo', 'desc')->first();
 
@@ -36,12 +47,12 @@ class PatientController extends Controller
         $PatientNo = $lastPatient ? $lastPatient->PatientNo + 1 : 1;
 
         return view('admin.patient.create', compact('PatientNo'));
-        // return view('admin.patient.list');
+
     }
 
     public function store(Request $request)
     {
-        // dd($request->FirstName);
+
         $request->validate([
             'FirstName' => 'required|string|max:255',
             'LastName' => 'required|string|max:255',
@@ -50,7 +61,6 @@ class PatientController extends Controller
 
         $patient = new Patient();
 
-        // Assign values to the patient model
         $patient->FirstName = $request->FirstName;
         $patient->LastName = $request->LastName;
         $patient->Email = $request->Email;
@@ -87,7 +97,6 @@ class PatientController extends Controller
             'LastName' => 'required|string|max:255',
             'MobileNo' => 'required|digits:10',
         ]);
-        // Prepare the data to update
         $updateData = [
             'FirstName' => $request->FirstName,
             'LastName' => $request->LastName,
@@ -102,17 +111,13 @@ class PatientController extends Controller
             'Pin' => $request->Pin,
         ];
 
-        // Assuming you have the patient ID
         $patient = Patient::where('Id', $id)->update($updateData);  // or Patient::findOrFail($request->id);
 
-        // Redirect to the updated patient details page
         return redirect()->route('admin.patient')->with('success', 'Patient updated successfully!');
     }
 
     public function destroy($id)
     {
-        // $patient = Patient::findOrFail($id);
-        // $patient->delete();
         $patient = Patient::where('Id', $id)->delete();
 
         return redirect()->route('admin.patient')->with('success', 'User deleted successfully.');

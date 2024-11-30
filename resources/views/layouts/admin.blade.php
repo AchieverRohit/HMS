@@ -160,26 +160,26 @@
                             <span class="menu-title">Patients </span>
                         </a>
                     </li>
-
-                    <!-- <li class="nav-item">
-                        <a class="nav-link {{ Route::is('admin.appointment') ? 'active' : '' }}"
-                            href="{{ route('admin.appointment') }}">
+                    <!-- admin.hospital -->
+                     <li class="nav-item">
+                        <a class="nav-link {{ Route::is('admin.hospital') ? 'active' : '' }}"
+                            href="{{ route('admin.hospital') }}">
                             <i class="icon-layout menu-icon"></i>
-                            <span class="menu-title">Appointments</span>
+                            <span class="menu-title">Hospitals</span>
                         </a>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link {{ Route::is('admin.doctor') ? 'active' : '' }}"
-                            href="{{ route('admin.doctor') }}">
+                    <!--<li class="nav-item">
+                        <a class="nav-link 
+                            href="">
                             <i class="icon-layout menu-icon"></i>
                             <span class="menu-title">Doctors</span>
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link {{ Route::is('admin.prescription') ? 'active' : '' }}"
-                            href="{{ route('admin.prescription') }}">
+                        <a class="nav-link 
+                            href="">
                             <i class="icon-layout menu-icon"></i>
                             <span class="menu-title">Prescription</span>
                         </a>
