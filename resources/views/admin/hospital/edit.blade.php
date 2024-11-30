@@ -3,7 +3,6 @@
 @section('title', 'Edit Patient')
 
 @section('content')
-
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="row">
@@ -12,17 +11,17 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <h4 class="card-title mb-0">Patient Table</h4>
-                                <a href="{{ route('admin.patient.add') }}" class="btn btn-sm btn-primary">
+                                <a href="{{ route('admin.patient') }}" class="btn btn-sm btn-primary">
                                     <- Back
                                 </a>
                             </div>
-                            <form action="{{ route('admin.patient.update', $patient->Id) }}" method="POST"
+                            <form id="editPatientForm" action="{{ route('admin.patient.update', $patient->Id) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
 
                                 <div class="container">
-                                    <!-- Row 1: Patient No (Read-Only) -->
+                                    <!-- Patient Fields -->
                                     <div class="row mt-2">
                                         <div class="col-md-6">
                                             <label for="PatientNo" class="form-label">Patient No</label>
@@ -31,21 +30,25 @@
                                         </div>
                                     </div>
 
-                                    <!-- Row 2: First Name and Last Name -->
                                     <div class="row mt-2">
                                         <div class="col-md-6">
                                             <label for="FirstName" class="form-label">First Name</label>
                                             <input type="text" id="FirstName" name="FirstName" class="form-control"
-                                                value="{{ $patient->FirstName }}" required>
+                                                value="{{ $patient->FirstName }}">
+                                                @error('FirstName')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
                                         </div>
                                         <div class="col-md-6">
                                             <label for="LastName" class="form-label">Last Name</label>
                                             <input type="text" id="LastName" name="LastName" class="form-control"
-                                                value="{{ $patient->LastName }}" required>
+                                                value="{{ $patient->LastName }}">
+                                                @error('LastName')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
                                         </div>
                                     </div>
 
-                                    <!-- Row 3: Email and Phone -->
                                     <div class="row mt-2">
                                         <div class="col-md-6">
                                             <label for="Email" class="form-label">Email</label>
@@ -54,12 +57,14 @@
                                         </div>
                                         <div class="col-md-6">
                                             <label for="MobileNo" class="form-label">Phone</label>
-                                            <input type="mumber" id="MobileNo" name="MobileNo" class="form-control"
+                                            <input type="number" id="MobileNo" name="MobileNo" class="form-control"
                                                 value="{{ $patient->MobileNo }}">
+                                                @error('MobileNo')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
                                         </div>
                                     </div>
 
-                                    <!-- Row 4: Address -->
                                     <div class="row mt-2">
                                         <div class="col-md-3">
                                             <label for="Age" class="form-label">Age</label>
@@ -82,12 +87,9 @@
                                             <label for="Gender" class="form-label">Gender</label>
                                             <select id="Gender" name="Gender" class="form-control">
                                                 <option value="" disabled>Select Gender</option>
-                                                <option value="Male" {{ $patient->Gender == 'Male' ? 'selected' : '' }}>
-                                                    Male</option>
-                                                <option value="Female"
-                                                    {{ $patient->Gender == 'Female' ? 'selected' : '' }}>Female</option>
-                                                <option value="Other" {{ $patient->Gender == 'Other' ? 'selected' : '' }}>
-                                                    Other</option>
+                                                <option value="Male" {{ $patient->Gender == 'Male' ? 'selected' : '' }}>Male</option>
+                                                <option value="Female" {{ $patient->Gender == 'Female' ? 'selected' : '' }}>Female</option>
+                                                <option value="Other" {{ $patient->Gender == 'Other' ? 'selected' : '' }}>Other</option>
                                             </select>
                                         </div>
                                         <div class="col-md-3">
@@ -106,13 +108,13 @@
                                                 value="{{ $patient->City }}">
                                         </div>
                                     </div>
-                                    <!-- Submit Button -->
+
+                                    <!-- Buttons -->
                                     <div class="row mt-4">
-                                        <div class="col-md-14 text-center">
-                                            <button type="button" class="btn btn-secondary">
+                                        <div class="col-md-12 text-center">
+                                            <button type="reset" class="btn btn-secondary" id="resetButton">
                                                 Reset</button>
-                                            <button type="submit" class="btn btn-primary">Update
-                                                Patient</button>
+                                            <button type="submit" class="btn btn-primary">Update Patient</button>
                                         </div>
                                     </div>
                                 </div>
@@ -124,4 +126,16 @@
         </div>
     </div>
 
+    <!-- JavaScript to Force Reset -->
+    <script>
+        document.getElementById('resetButton').addEventListener('click', function(e) {
+            e.preventDefault();  // Prevent the default reset behavior
+            const form = document.getElementById('editPatientForm');
+            form.reset();  // Reset all form fields to their initial state (empty)
+            // Manually clear select and textarea values
+            // form.querySelectorAll('textarea, select').forEach(function(field) {
+            //     field.value = '';
+            // });
+        });
+    </script>
 @endsection
