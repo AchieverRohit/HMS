@@ -67,7 +67,7 @@ class AdminController extends Controller
 
         $HospitalInfo = Hospital::where('Id', $adminInfo->HospitalId)->first();
         // Store admin ID in the session
-        $request->session()->put('LoggedAdminInfo', $adminInfo->Id);
+        $request->session()->put('LoggedInfo', $adminInfo);
 
         // Redirect to the dashboard
         return view('admin.dashboard', [

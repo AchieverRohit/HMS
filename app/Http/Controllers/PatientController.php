@@ -42,21 +42,11 @@ class PatientController extends Controller
     public function store(Request $request)
     {
         // dd($request->FirstName);
-        $validated = $request->validate([
+        $request->validate([
             'FirstName' => 'required|string|max:255',
             'LastName' => 'required|string|max:255',
-            'Email' => 'required|email|max:255',
             'MobileNo' => 'required|digits:10',
-            'Address' => 'required|string|max:255',
-            'Dob' => 'required|date',
-            'Gender' => 'required|string|max:10',
-            'Age' => 'required|integer|min:1',
-            'BloodGroup' => 'required|string|max:5',
-            'City' => 'required|string|max:255',
-            'Pin' => 'required|numeric|digits:6',
-            // 'PatientNo' => 'required|string|max:50|unique:patients,PatientNo', // Assuming PatientNo is unique
         ]);
-
 
         $patient = new Patient();
 
@@ -72,11 +62,11 @@ class PatientController extends Controller
         $patient->BloodGroup = $request->BloodGroup;
         $patient->City = $request->City;
         $patient->Pin = $request->Pin;
-        $patient->HospitalId = 1;
+        $patient->HospitalId = session('LoggedInfo')->HospitalId;
         $patient->PatientNo = $request->input('PatientNo');
 
-        $doctors = Doctor::all();
-        $services = Service::all();
+        // $doctors = Doctor::all();
+        // $services = Service::all();
 
         $patient->save();
 
@@ -87,13 +77,16 @@ class PatientController extends Controller
     {
         $patient = Patient::where('Id', $id)->first();
 
-        // dd($patient);
         return view('admin.patient.edit', compact('patient'));
     }
 
     public function update(Request $request, $id)
     {
-
+        $request->validate([
+            'FirstName' => 'required|string|max:255',
+            'LastName' => 'required|string|max:255',
+            'MobileNo' => 'required|digits:10',
+        ]);
         // Prepare the data to update
         $updateData = [
             'FirstName' => $request->FirstName,
