@@ -13,15 +13,9 @@
                     <div class="col-12 col-xl-8 mb-4 mb-xl-0">
                                     <h3 class="font-weight-bold">
                                         Welcome
-                                        @if (session('LoggedAdminInfo'))
-                                        {{ $LoggedAdminInfo->name }}
-                                        <!-- Add more user information as needed -->
-                                        @else
-                                        <p>Access denied. Please <a href="{{ route('admin.login') }}">login</a> to view
-                                            this page.</p>
-                                        @endif
+                                        {{ session('LoggedInfo')->FirstName }}
+                                        {{ session('LoggedInfo')->LastName }}
                                     </h3>
-
                                     <h6 class="font-weight-normal mb-0">All systems are running smoothly! You have <span
                                             class="text-primary">3 unread alerts!</span></h6>
                     </div>

@@ -44,7 +44,7 @@
                                     <div class="row mt-2">
                                         <div class="col-md-6">
                                             <label for="Email" class="form-label">Email</label>
-                                            <input type="Email" id="Email" name="Email" class="form-control"
+                                            <input type="Email" id="Email" name="Email" class="form-control" value="{{ old('Email') }}"
                                                 placeholder="Email (hitesh@gmail.com)">
                                         </div>
                                         <div class="col-md-6">
@@ -61,17 +61,17 @@
                                     <div class="row  mt-2">
                                         <div class="col-md-3">
                                             <label for="Age" class="form-label">Age</label>
-                                            <input type="number" id="Age" name="Age" class="form-control"
+                                            <input type="number" id="Age" name="Age" class="form-control" value="{{ old('Age') }}"
                                                 placeholder="Age (24)">
                                         </div>
                                         <div class="col-md-3">
                                             <label for="Dob" class="form-label">Date of Birth</label>
-                                            <input type="date" id="Dob" name="Dob" class="form-control"
+                                            <input type="date" id="Dob" name="Dob" class="form-control" value="{{ old('Dob') }}"
                                                 placeholder="Dob (21-12-1998)">
                                         </div>
                                         <div class="col-md-6">
                                             <label for="Address" class="form-label">Address</label>
-                                            <input type="text" id="Address" name="Address" class="form-control"
+                                            <input type="text" id="Address" name="Address" class="form-control" value="{{ old('Address') }}"
                                                 placeholder="Address (Indira Nagar)">
                                         </div>
 
@@ -81,7 +81,7 @@
                                     <div class="row mt-2">
                                         <div class="col-md-3">
                                             <label for="Gender" class="form-label">Gender</label>
-                                            <select id="Gender" name="Gender" class="form-control">
+                                            <select id="Gender" name="Gender" class="form-control" value="{{ old('Gender') }}">
                                                 <option value="" disabled selected>Select Gender</option>
                                                 <option value="Male">Male</option>
                                                 <option value="Female">Female</option>
@@ -90,17 +90,17 @@
                                         </div>
                                         <div class="col-md-3">
                                             <label for="BloodGroup" class="form-label">Blood Group</label>
-                                            <input type="text" id="BloodGroup" name="BloodGroup" class="form-control"
+                                            <input type="text" id="BloodGroup" name="BloodGroup" class="form-control" value="{{ old('BloodGroup') }}"
                                                 placeholder="Blood Group (B+)">
                                         </div>
                                         <div class="col-md-3">
                                             <label for="Pin" class="form-label">Pin</label>
-                                            <input type="number" id="Pin" name="Pin" class="form-control"
+                                            <input type="number" id="Pin" name="Pin" class="form-control" value="{{ old('Pin') }}"
                                                 placeholder="Pin (423202)">
                                         </div>
                                         <div class="col-md-3">
                                             <label for="City" class="form-label">City</label>
-                                            <input type="text" id="City" name="City" class="form-control"
+                                            <input type="text" id="City" name="City" class="form-control" value="{{ old('City') }}"
                                                 placeholder="City (Nashik)">
                                         </div>
                                     </div>

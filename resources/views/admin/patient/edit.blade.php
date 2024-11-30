@@ -34,12 +34,18 @@
                                         <div class="col-md-6">
                                             <label for="FirstName" class="form-label">First Name</label>
                                             <input type="text" id="FirstName" name="FirstName" class="form-control"
-                                                value="{{ $patient->FirstName }}" required>
+                                                value="{{ $patient->FirstName }}">
+                                                @error('FirstName')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
                                         </div>
                                         <div class="col-md-6">
                                             <label for="LastName" class="form-label">Last Name</label>
                                             <input type="text" id="LastName" name="LastName" class="form-control"
-                                                value="{{ $patient->LastName }}" required>
+                                                value="{{ $patient->LastName }}">
+                                                @error('LastName')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
                                         </div>
                                     </div>
 
@@ -53,6 +59,9 @@
                                             <label for="MobileNo" class="form-label">Phone</label>
                                             <input type="number" id="MobileNo" name="MobileNo" class="form-control"
                                                 value="{{ $patient->MobileNo }}">
+                                                @error('MobileNo')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
                                         </div>
                                     </div>
 

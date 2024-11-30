@@ -149,7 +149,7 @@
                         <a class="nav-link {{ Route::is('admin.profile') ? 'active' : '' }}"
                             href="{{ route('admin.profile') }}">
                             <i class="icon-layout menu-icon"></i>
-                            <span class="menu-title">Profile</span>
+                            <span class="menu-title">Profile {{ session('LoggedInfo')->Id }}</span>
                         </a>
                     </li>
 
@@ -157,7 +157,7 @@
                         <a class="nav-link {{ Route::is('admin.patient') ? 'active' : '' }}"
                             href="{{ route('admin.patient') }}">
                             <i class="icon-layout menu-icon"></i>
-                            <span class="menu-title">Patients</span>
+                            <span class="menu-title">Patients </span>
                         </a>
                     </li>
 
