@@ -8941,8 +8941,8 @@ input[type="radio"],
 input[type="checkbox"] {
   box-sizing: border-box;
   padding: 0;
-}
 
+}
 textarea {
   overflow: auto;
   resize: vertical;
@@ -19059,7 +19059,7 @@ a.text-dark:hover, a.text-dark:focus {
   .table, .jsgrid .jsgrid-table {
     border-collapse: collapse !important;
   }
-  
+
   .table td,
   .jsgrid .jsgrid-table td, .table th, .jsgrid .jsgrid-table th {
     background-color: #ffffff !important;

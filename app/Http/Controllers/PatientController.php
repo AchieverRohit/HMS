@@ -21,16 +21,19 @@ class PatientController extends Controller
     public function showList(Request $request)
     {
         $query = Patient::query();
-    
+
         if ($request->has('search') && $request->search != '') {
             $search = $request->search;
-            $query->whereRaw("CONCAT(FirstName, ' ', LastName) LIKE ?", ["%$search%"]);
+            $query->whereRaw("CONCAT(FirstName, ' ', LastName) LIKE ?", ["%$search%"])
+                ->orWhere("Email", "LIKE", "%" . $search . "%")
+                ->orWhere("MobileNo", "LIKE", "%" . $search . "%")
+                ->orWhere("PatientNo", "LIKE", "%" . $search . "%");
         }
-    
+
         $patients = $query->paginate(10);
-    
+
         $patients->appends(['search' => $request->search]);
-    
+
         return view('admin.patient.list', [
             'patients' => $patients,
             'search' => $request->search,

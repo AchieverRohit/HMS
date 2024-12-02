@@ -6,7 +6,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Skydash Admin</title>
+    <title>HMS Admin</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="/vendors/feather/feather.css">
     <link rel="stylesheet" href="/vendors/ti-icons/css/themify-icons.css">
@@ -161,16 +161,22 @@
                         </a>
                     </li>
                     <!-- admin.hospital -->
-                     <li class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link {{ Route::is('admin.hospital') ? 'active' : '' }}"
                             href="{{ route('admin.hospital') }}">
                             <i class="icon-layout menu-icon"></i>
                             <span class="menu-title">Hospitals</span>
                         </a>
                     </li>
-
+                    <li class="nav-item">
+                        <a class="nav-link {{ Route::is('admin.appointment') ? 'active' : '' }}"
+                            href="{{ route('admin.appointment') }}">
+                            <i class="icon-layout menu-icon"></i>
+                            <span class="menu-title">Appointment</span>
+                        </a>
+                    </li>
                     <!--<li class="nav-item">
-                        <a class="nav-link 
+                        <a class="nav-link
                             href="">
                             <i class="icon-layout menu-icon"></i>
                             <span class="menu-title">Doctors</span>
@@ -178,7 +184,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link 
+                        <a class="nav-link
                             href="">
                             <i class="icon-layout menu-icon"></i>
                             <span class="menu-title">Prescription</span>
@@ -201,7 +207,7 @@
                         </a>
                     </li> -->
 
-                    <!-- <li class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link {{ Route::is('admin.staff') ? 'active' : '' }}"
                             href="{{ route('admin.staff') }}">
                             <i class="icon-layout menu-icon"></i>
@@ -209,7 +215,7 @@
                         </a>
                     </li>
 
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link {{ request()->is('admin/user*') ? 'active' : '' }}" data-toggle="collapse"
                             href="#form-elements" aria-expanded="false" aria-controls="form-elements">
                             <i class="icon-columns menu-icon"></i>
@@ -221,7 +227,7 @@
                                 <li class="nav-item"><a
                                         class="nav-link {{ request()->is('admin/user') ? 'active' : '' }}"
                                         href="{{ route('admin.user') }}">User List</a></li>
-                            
+
                             </ul>
                         </div>
                     </li> -->

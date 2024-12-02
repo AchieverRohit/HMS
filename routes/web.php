@@ -54,4 +54,17 @@ Route::delete('/admin/hospital/delete/{id}', [HospitalController::class, 'destro
 
 
 Route::get('/admin/role', [RoleController::class, 'showProfile'])->name('admin.roles');
-Route::get('/admin/staff', [StaffController::class, 'showProfile'])->name('admin.staff');
+
+Route::get('/admin/staff', [StaffController::class, 'showList'])->name('admin.staff');
+Route::get('/admin/staff/add', [StaffController::class, 'createForm'])->name('admin.staff.add');
+Route::post('/admin/staff/add', [StaffController::class, 'store'])->name('admin.staff.store');
+Route::get('/admin/staff/edit/{id}', [StaffController::class, 'editForm'])->name('admin.staff.edit');
+Route::put('/admin/staff/edit/{id}', [StaffController::class, 'update'])->name('admin.staff.update');
+Route::delete('/admin/staff/delete/{id}', [StaffController::class, 'destroy'])->name('admin.staff.destroy');
+
+Route::get('/admin/appointment', [AppointmentController::class, 'showList'])->name('admin.appointment');
+Route::get('/admin/appointment/add', [AppointmentController::class, 'createForm'])->name('admin.appointment.add');
+Route::post('/admin/appointment/add', [AppointmentController::class, 'store'])->name('admin.appointment.store');
+Route::get('/admin/appointment/edit/{id}', [AppointmentController::class, 'editForm'])->name('admin.appointment.edit');
+Route::put('/admin/appointment/edit/{id}', [AppointmentController::class, 'update'])->name('admin.appointment.update');
+Route::delete('/admin/appointment/delete/{id}', [AppointmentController::class, 'destroy'])->name('admin.appointment.destroy');

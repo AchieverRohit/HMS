@@ -9,8 +9,11 @@ class AppointmentController extends Controller
 {
     public function showList()
     {
-        $Appointments = Appointment::all();
-
+        $hospitalId = session('LoggedInfo')->HospitalId;
+        $Appointments = Appointment::with(['doctor', 'patient', 'service'])
+            ->where('HospitalId', $hospitalId)
+            ->get();
+        dd($Appointments);
         return view('admin.appointment.list', ['appointments' => $Appointments]);
 
     }

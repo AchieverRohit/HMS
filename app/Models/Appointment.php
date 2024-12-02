@@ -20,6 +20,7 @@ class Appointment extends Model
         'ReffernceBy',
         'DateTime',
         'Duration',
+        'HospitalId'
     ];
 
     // Relationships
@@ -27,7 +28,10 @@ class Appointment extends Model
     {
         return $this->belongsTo(User::class, 'DoctorId');
     }
-
+    public function hospital()
+    {
+        return $this->belongsTo(Hospital::class, 'HospitalId');
+    }
     public function patient()
     {
         return $this->belongsTo(Patient::class, 'PatientId');
