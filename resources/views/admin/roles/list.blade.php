@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Patients List')
+@section('title', 'Roles List')
 
 @section('content')
 
@@ -12,7 +12,7 @@
                         <div class="card-body">
                             <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
                                 <!-- Title -->
-                                <h4 class="card-title mb-2 mb-md-0">Patient Table</h4>
+                                <h4 class="card-title mb-2 mb-md-0">Roles Table</h4>
                                 <!-- Search Form -->
                                 <form action="{{ route('admin.patient') }}" method="GET"
                                     class="form-inline d-flex flex-wrap mb-2 mb-md-0">
@@ -28,34 +28,25 @@
                                     </a>
                                 </form>
                                 <!-- Add User Button -->
-                                <a href="{{ route('admin.patient.add') }}" class="btn btn-sm btn-primary">
-                                    <i class="fas fa-user-plus"></i> Add User
+                                <a href="{{ route('admin.role.add') }}" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-user-plus"></i> Add Role
                                 </a>
                             </div>
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th>PatientId</th>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Phone</th>
-                                            <th>Date of Birth</th>
-                                            <th>Gender</th>
-                                            <th>Actions</th>
+                                            <th>Role Name</th>
+                                            <th>Description</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($patients as $patient)
+                                        @foreach ($roles as $role)
                                             <tr>
-                                                <td>{{ $patient->PatientNo }}</td>
-                                                <td>{{ $patient->FirstName }} {{ $patient->LastName }}</td>
-                                                <td>{{ $patient->Email }}</td>
-                                                <td>{{ $patient->MobileNo }}</td>
-                                                <td>{{ $patient->Dob }}</td>
-                                                <td>{{ $patient->Gender }}</td>
+                                                <td>{{ $role->RoleName }}</td>
+                                                <td>{{ $role->Description }}</td>
                                                 <td>
-                                                    <a href="{{ route('admin.patient.edit', $patient->Id) }}"
+                                                    <a href="{{ route('admin.role.edit', $role->Id) }}"
                                                         class="btn btn-sm btn-warning">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                             height="16" fill="currentColor" class="bi bi-pencil-fill"
@@ -64,28 +55,15 @@
                                                                 d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
                                                         </svg>
                                                     </a>
-                                                    <!-- <form action="{{ route('admin.patient.destroy', $patient->Id) }}"
-                                                        method="POST" style="display: inline-block;">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-sm btn-danger">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                                height="16" fill="currentColor" class="bi bi-trash3-fill"
-                                                                viewBox="0 0 16 16">
-                                                                <path
-                                                                    d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5" />
-                                                            </svg>
-                                                        </button>
-                                                    </form> -->
-                                                    <form id="delete-form-{{ $patient->Id }}" 
-                                                        action="{{ route('admin.patient.destroy', $patient->Id) }}" 
+                                                    <form id="delete-form-{{ $role->Id }}" 
+                                                        action="{{ route('admin.role.destroy', $role->Id) }}" 
                                                         method="POST" 
                                                         style="display: none;">
                                                         @csrf
                                                         @method('DELETE')
                                                     </form>
 
-                                                    <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ $patient->Id }})">
+                                                    <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ $role->Id }})">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" 
                                                             class="bi bi-trash3-fill" viewBox="0 0 16 16">
                                                             <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5" />
@@ -98,7 +76,7 @@
                                 </table>
                             </div>
                             <div class="mt-3">
-                                {{ $patients->links('pagination::bootstrap-4') }}
+                                {{ $roles->links('pagination::bootstrap-4') }}
                             </div>
                         </div>
                     </div>

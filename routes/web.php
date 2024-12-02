@@ -52,8 +52,14 @@ Route::get('/admin/hospital/edit/{id}', [HospitalController::class, 'editForm'])
 Route::put('/admin/hospital/edit/{id}', [HospitalController::class, 'update'])->name('admin.hospital.update');
 Route::delete('/admin/hospital/delete/{id}', [HospitalController::class, 'destroy'])->name('admin.hospital.destroy');
 
+// Roles
+Route::get('/admin/role', [RoleController::class, 'showList'])->name('admin.role');
+Route::get('/admin/role/add', [RoleController::class, 'createForm'])->name('admin.role.add');
+Route::post('/admin/role/add', [RoleController::class, 'store'])->name('admin.role.store');
+Route::get('/admin/role/edit/{id}', [RoleController::class, 'editForm'])->name('admin.role.edit');
+Route::put('/admin/role/edit/{id}', [RoleController::class, 'update'])->name('admin.role.update');
+Route::delete('/admin/role/delete/{id}', [RoleController::class, 'destroy'])->name('admin.role.destroy');
 
-Route::get('/admin/role', [RoleController::class, 'showProfile'])->name('admin.roles');
 
 Route::get('/admin/staff', [StaffController::class, 'showList'])->name('admin.staff');
 Route::get('/admin/staff/add', [StaffController::class, 'createForm'])->name('admin.staff.add');

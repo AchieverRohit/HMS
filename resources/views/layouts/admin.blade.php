@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
     <link rel="stylesheet" href="/vendors/ti-icons/css/themify-icons.css">
     <link rel="stylesheet" type="text/css" href="js/select.dataTables.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+
     <!-- End plugin css for this page -->
     <!-- inject:css -->
     <link rel="stylesheet" href="/css/vertical-layout-light/style.css">
@@ -197,15 +199,15 @@
                             <i class="icon-layout menu-icon"></i>
                             <span class="menu-title">Hospital</span>
                         </a>
-                    </li>
+                    </li> -->
 
                     <li class="nav-item">
-                        <a class="nav-link {{ Route::is('admin.roles') ? 'active' : '' }}"
-                            href="{{ route('admin.roles') }}">
+                        <a class="nav-link {{ Route::is('admin.role') ? 'active' : '' }}"
+                            href="{{ route('admin.role') }}">
                             <i class="icon-layout menu-icon"></i>
                             <span class="menu-title">Roles</span>
                         </a>
-                    </li> -->
+                    </li> 
 
                     <li class="nav-item">
                         <a class="nav-link {{ Route::is('admin.staff') ? 'active' : '' }}"
@@ -343,7 +345,7 @@
     <script src="/vendors/datatables.net/jquery.dataTables.js"></script>
     <script src="/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
     <script src="/js/dataTables.select.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- End plugin js for this page -->
     <!-- inject:js -->
     <script src="/js/off-canvas.js"></script>

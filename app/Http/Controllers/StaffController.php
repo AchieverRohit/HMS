@@ -58,7 +58,7 @@ class StaffController extends Controller
         $staff->Email = $request->Email;
         $staff->Mobile = $request->Mobile;
         $staff->HospitalId = session('LoggedInfo')->HospitalId;
-        $staff->Password = '123456';
+        $staff->Password = Hash::make('123456');;
         $staff->IsActive = 1;
         $staff->IsDeleted = 0;
         $staff->RoleId = $request->RoleId;
