@@ -9,6 +9,7 @@ use App\Http\Controllers\PrescriptionController;
 use App\Http\Controllers\HospitalController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\DiagnosisController;
 use App\Http\Controllers\StaffController;
 
 
@@ -60,6 +61,13 @@ Route::get('/admin/role/edit/{id}', [RoleController::class, 'editForm'])->name('
 Route::put('/admin/role/edit/{id}', [RoleController::class, 'update'])->name('admin.role.update');
 Route::delete('/admin/role/delete/{id}', [RoleController::class, 'destroy'])->name('admin.role.destroy');
 
+// Diagnosis
+Route::get('/admin/diagnosis', [DiagnosisController::class, 'showList'])->name('admin.diagnosis');
+Route::get('/admin/diagnosis/add', [DiagnosisController::class, 'createForm'])->name('admin.diagnosis.add');
+Route::post('/admin/diagnosis/add', [DiagnosisController::class, 'store'])->name('admin.diagnosis.store');
+Route::get('/admin/diagnosis/edit/{id}', [DiagnosisController::class, 'editForm'])->name('admin.diagnosis.edit');
+Route::put('/admin/diagnosis/edit/{id}', [DiagnosisController::class, 'update'])->name('admin.diagnosis.update');
+Route::delete('/admin/diagnosis/delete/{id}', [DiagnosisController::class, 'destroy'])->name('admin.diagnosis.destroy');
 
 Route::get('/admin/staff', [StaffController::class, 'showList'])->name('admin.staff');
 Route::get('/admin/staff/add', [StaffController::class, 'createForm'])->name('admin.staff.add');

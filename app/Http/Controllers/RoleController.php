@@ -5,7 +5,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-use App\Models\Admin;
 use App\Models\Role;
 
 
@@ -53,7 +52,7 @@ class RoleController extends Controller
 
         $role->save();
 
-        return redirect()->route('admin.role')->with('success', 'Patient updated successfully!');
+        return redirect()->route('admin.role')->with('success', 'Role updated successfully!');
     }
 
     public function editForm($id)
@@ -75,14 +74,23 @@ class RoleController extends Controller
 
         $role = Role::where('Id', $id)->update($updateData);  // or Patient::findOrFail($request->id);
 
-        return redirect()->route('admin.role')->with('success', 'Patient updated successfully!');
+        return redirect()->route('admin.role')->with('success', 'Role updated successfully!');
     }
 
     public function destroy($id)
     {
+        if (in_array($id, [1, 2, 3])) {
+            return redirect()->route('admin.role')->with('error', 'This role cannot be deleted.');
+        }
+    
         $role = Role::where('Id', $id)->delete();
+    
+        if ($role) {
+            return redirect()->route('admin.role')->with('success', 'Role deleted successfully.');
+        }
+    
+        return redirect()->route('admin.role')->with('error', 'Failed to delete the role.');
 
-        return redirect()->route('admin.role')->with('success', 'User deleted successfully.');
     }
 
 }

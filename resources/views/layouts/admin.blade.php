@@ -217,6 +217,14 @@
                         </a>
                     </li>
 
+                    <li class="nav-item">
+                        <a class="nav-link {{ Route::is('admin.diagnosis') ? 'active' : '' }}"
+                            href="{{ route('admin.diagnosis') }}">
+                            <i class="icon-layout menu-icon"></i>
+                            <span class="menu-title">Diagnosis</span>
+                        </a>
+                    </li>
+
                     <!-- <li class="nav-item">
                         <a class="nav-link {{ request()->is('admin/user*') ? 'active' : '' }}" data-toggle="collapse"
                             href="#form-elements" aria-expanded="false" aria-controls="form-elements">
