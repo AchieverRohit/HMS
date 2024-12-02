@@ -7,16 +7,26 @@ use Illuminate\Http\Request;
 
 class AppointmentController extends Controller
 {
-    public function showList()
+    public function showList(Request $request)
     {
         $hospitalId = session('LoggedInfo')->HospitalId;
-        $Appointments = Appointment::with(['doctor', 'patient', 'service'])
-            ->where('HospitalId', $hospitalId)
-            ->get();
-        dd($Appointments);
-        return view('admin.appointment.list', ['appointments' => $Appointments]);
 
+        // Get the filter date from the request
+        $filterDate = $request->input('filter_date');
+
+        // Fetch appointments filtered by date if filter_date is provided
+        $appointmentsQuery = Appointment::with(['doctor', 'patient', 'service'])
+            ->where('HospitalId', $hospitalId);
+
+        if ($filterDate) {
+            $appointmentsQuery->whereDate('DateTime', $filterDate); // Filter by date
+        }
+
+        $appointments = $appointmentsQuery->get();
+
+        return view('admin.appointment.list', compact('appointments'));
     }
+
 
     public function createForm()
     {

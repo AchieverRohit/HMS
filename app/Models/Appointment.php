@@ -26,7 +26,7 @@ class Appointment extends Model
     // Relationships
     public function doctor()
     {
-        return $this->belongsTo(User::class, 'DoctorId');
+        return $this->belongsTo(User::class, 'DoctorId', 'Id');
     }
     public function hospital()
     {
@@ -34,12 +34,12 @@ class Appointment extends Model
     }
     public function patient()
     {
-        return $this->belongsTo(Patient::class, 'PatientId');
+        return $this->belongsTo(Patient::class, 'PatientId', 'Id');
     }
 
     public function service()
     {
-        return $this->belongsTo(Service::class, 'ServiceId');
+        return $this->belongsTo(Service::class, 'ServiceId', 'Id');
     }
 
     public function status()
