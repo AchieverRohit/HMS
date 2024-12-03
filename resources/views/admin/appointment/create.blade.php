@@ -12,10 +12,10 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <h4 class="card-title mb-0">Add Appointment</h4>
-                                <a href="{{ route('admin.Appointment') }}" class="btn btn-sm btn-primary">
+                                <a href="{{ route('admin.appointment') }}" class="btn btn-sm btn-primary">
                                     <- Back </a>
                             </div>
-                            <form id="addAppointmentForm" action="{{ route('admin.Appointment.store') }}" method="POST"
+                            <form id="addAppointmentForm" action="{{ route('admin.appointment.store') }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <div class="container">

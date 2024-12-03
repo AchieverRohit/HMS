@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
+use App\Models\Patient;
 
 
 class AppointmentController extends Controller
@@ -22,41 +23,40 @@ class AppointmentController extends Controller
             $appointmentsQuery->whereDate('DateTime', $filterDate); // Filter by date
         }
 
+        $lastPatient = Patient::orderBy('PatientNo', 'desc')->first();
+        $PatientNo = $lastPatient ? $lastPatient->PatientNo + 1 : 1;
+
         $appointments = $appointmentsQuery->get();
 
-        return view('admin.appointment.list', compact('appointments'));
+        return view('admin.appointment.list', compact('appointments','PatientNo'));
     }
 
 
     public function createForm()
     {
-        return view('admin.appointment.create');
+        $AppointmentNo = '21';
+        $lastPatient = Patient::orderBy('PatientNo', 'desc')->first();
+        $PatientNo = $lastPatient ? $lastPatient->PatientNo + 1 : 1;
+        return view('admin.appointment.create', compact('PatientNo','AppointmentNo'));
     }
 
     public function store(Request $request)
     {
-        // dd($request->FirstName);
-
-        $appointment = new Appointment();
-
-        // Assign values to the patient model
-        // $patient->FirstName = $request->FirstName;
-        // $patient->LastName = $request->LastName;
-        // $patient->Email = $request->Email;
-        // $patient->MobileNo = $request->MobileNo;
-        // $patient->Address = $request->Address;
-        // $patient->Dob = $request->Dob;
-        // $patient->Gender = $request->Gender;
-        // $patient->Age = $request->Age;
-        // $patient->BloodGroup = $request->BloodGroup;
-        // $patient->City = $request->City;
-        // $patient->Pin = $request->Pin;
-        // $patient->HospitalId = 1;
-
-
-        // $patient->save();
-        return redirect()->route('admin.appointment');
+        // dd("data");
+        $request->validate([
+            'FirstName' => 'required|max:255',
+            'MobileNo' => 'required|digits:10',
+            'Gender' => 'required',
+            'Email' => 'nullable|email',
+            // Add more validation rules as necessary
+        ]);
+    
+        // Save the data to the database
+        Appointment::create($request->all());
+    
+        return redirect()->route('admin.appointment')->with('success', 'Appointment added successfully.');
     }
+    
 
     public function editForm($id)
     {

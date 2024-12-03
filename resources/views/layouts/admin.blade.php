@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="/vendors/css/vendor.bundle.base.css">
     <!-- endinject -->
     <!-- Plugin css for this page -->
-    <link rel="stylesheet" href="/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+    <!-- <link rel="stylesheet" href="/vendors/datatables.net-bs4/dataTables.bootstrap4.css"> -->
     <link rel="stylesheet" href="/vendors/ti-icons/css/themify-icons.css">
     <link rel="stylesheet" type="text/css" href="js/select.dataTables.min.css">
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
@@ -24,9 +24,8 @@
     <!-- endinject -->
     <link rel="shortcut icon" href="/images/favicon.png" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-
-<body>
     <div class="container-scroller">
         <!-- partial:partials/_navbar.html -->
         <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
@@ -354,6 +353,8 @@
     <script src="/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
     <script src="/js/dataTables.select.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
     <!-- End plugin js for this page -->
     <!-- inject:js -->
     <script src="/js/off-canvas.js"></script>

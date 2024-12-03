@@ -9,8 +9,6 @@ use App\Models\Admin;
 use App\Models\User;
 use App\Models\Hospital;
 
-
-
 class AdminController extends Controller
 {
     public function showLogin()
@@ -184,13 +182,11 @@ class AdminController extends Controller
             'role' => 'required|string',
             'picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-
         // Create a new User instance
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
         $user->role = $request->role;
-
         // Handle the picture file upload
         if ($request->hasFile('picture')) {
             $file = $request->file('picture');
@@ -198,14 +194,11 @@ class AdminController extends Controller
             $path = $file->storeAs('profile_pictures', $filename, 'public');
             $user->picture = $path;
         }
-
         // Save the user to the database
         $user->save();
-
         // Redirect to the user list with a success message
         return redirect()->route('admin.user')->with('success', 'User created successfully.');
     }
-
 
     // Update the specified user in storage
     public function update(Request $request, $id)
@@ -241,7 +234,5 @@ class AdminController extends Controller
 
         return redirect()->route('admin.user')->with('success', 'User deleted successfully.');
     }
-
-
 
 }
