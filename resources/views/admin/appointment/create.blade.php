@@ -54,7 +54,7 @@
                                             <div class="col-md-4 ml-auto">
                                                 <label for="Doctor" class="form-label">Doctor</label>
                                                 <select class="custom-select" id="DoctorId" Name="DoctorId">
-                                                    <option selected disabled value="">Choose...</option>
+                                                    <!-- <option selected disabled value="">Choose...</option> -->
                                                     @foreach($doctors as $item)
                                                         <option value="{{ $item->Id }}">Dr. {{ $item->FirstName }} {{ $item->LastName }}</option>
                                                     @endforeach
