@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Hospitals List')
+@section('title', 'Staffs List')
 
 @section('content')
 
@@ -10,9 +10,11 @@
                 <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h4 class="card-title mb-0">Hospitals</h4>
-                                <form action="{{ route('admin.hospital') }}" method="GET"
+                            <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+                                <!-- Title -->
+                                <h4 class="card-title mb-2 mb-md-0">Staff Table</h4>
+                                <!-- Search Form -->
+                                <form action="{{ route('admin.staff') }}" method="GET"
                                     class="form-inline d-flex flex-wrap mb-2 mb-md-0">
                                     <input type="text" name="search"
                                         class="form-control form-control-sm mr-2 mb-2 mb-sm-0" placeholder="Search"
@@ -20,41 +22,37 @@
                                     <button type="submit" class="btn btn-sm btn-primary mb-2 mb-sm-0">
                                         <i class="fas fa-search"></i> Search
                                     </button>
-                                    <a href="{{ route('admin.hospital') }}"
+                                    <a href="{{ route('admin.staff') }}"
                                         class="btn btn-sm btn-secondary ml-sm-2 mb-2 mb-sm-0">
                                         <i class="fas fa-times"></i>
                                     </a>
                                 </form>
-                                <a href="{{ route('admin.hospital.add') }}" class="btn btn-sm btn-primary">
-                                    <i class="fas fa-user-plus"></i> Add Hospital
+                                <!-- Add User Button -->
+                                <a href="{{ route('admin.staff.add') }}" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-user-plus"></i> Add Staff
                                 </a>
                             </div>
                             <div class="table-responsive">
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <!-- <th>HospitalId</th> -->
                                             <th>Name</th>
-                                            <th>Address</th>
-                                            <th>Status</th>
+                                            <th>Email</th>
+                                            <th>Phone</th>
+                                            <th>Role</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($hospitals as $hospital)
+                                        @foreach ($staffs as $staff)
                                             <tr>
-                                                <td>{{ $hospital->Name }}</td>
-                                                <td>{{ $hospital->Address }}</td>
+                                                <td>{{ $staff->FirstName }} {{ $staff->LastName }}</td>
+                                                <td>{{ $staff->Email }}</td>
+                                                <td>{{ $staff->Mobile }}</td>
+                                                <td>{{ $staff->Role->RoleName }}</td>
                                                 <td>
-                                                    @if ($hospital->IsActive)
-                                                        <span class="badge badge-success">Active</span>
-                                                    @else
-                                                        <span class="badge badge-secondary">Inactive</span>
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    <a href="{{ route('admin.hospital.edit', $hospital->Id) }}"
-                                                        class="btn btn-sm btn-info">
+                                                    <a href="{{ route('admin.staff.edit', $staff->Id) }}"
+                                                        class="btn btn-sm btn-warning">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                             height="16" fill="currentColor" class="bi bi-pencil-fill"
                                                             viewBox="0 0 16 16">
@@ -62,7 +60,8 @@
                                                                 d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z" />
                                                         </svg>
                                                     </a>
-                                                    <form action="{{ route('admin.hospital.destroy', $hospital->Id) }}"
+                                                    @if ($staff->RoleId != 1)
+                                                    <form action="{{ route('admin.staff.destroy', $staff->Id) }}"
                                                         method="POST" style="display: inline-block;">
                                                         @csrf
                                                         @method('DELETE')
@@ -75,11 +74,15 @@
                                                             </svg>
                                                         </button>
                                                     </form>
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
+                            </div>
+                            <div class="mt-3">
+                                {{ $staffs->links('pagination::bootstrap-4') }}
                             </div>
                         </div>
                     </div>

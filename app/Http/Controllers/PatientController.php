@@ -21,16 +21,19 @@ class PatientController extends Controller
     public function showList(Request $request)
     {
         $query = Patient::query();
-    
+
         if ($request->has('search') && $request->search != '') {
             $search = $request->search;
-            $query->whereRaw("CONCAT(FirstName, ' ', LastName) LIKE ?", ["%$search%"]);
+            $query->whereRaw("CONCAT(FirstName, ' ', LastName) LIKE ?", ["%$search%"])
+                ->orWhere("Email", "LIKE", "%" . $search . "%")
+                ->orWhere("MobileNo", "LIKE", "%" . $search . "%")
+                ->orWhere("PatientNo", "LIKE", "%" . $search . "%");
         }
-    
+
         $patients = $query->paginate(10);
-    
+
         $patients->appends(['search' => $request->search]);
-    
+
         return view('admin.patient.list', [
             'patients' => $patients,
             'search' => $request->search,
@@ -123,6 +126,28 @@ class PatientController extends Controller
         return redirect()->route('admin.patient')->with('success', 'User deleted successfully.');
     }
 
+    public function search(Request $request)
+    {
+        $query = Patient::query();
+
+        if ($request->has('search') && $request->search != '') {
+            $search = $request->search;
+            $query->where('HospitalId', session('LoggedInfo')->HospitalId) // Filter by HospitalId
+                ->where(function ($q) use ($search) {
+                    $q->where('PatientNo', 'LIKE', "%$search%")
+                        ->orWhere('FirstName', 'LIKE', "%$search%")
+                        ->orWhere('LastName', 'LIKE', "%$search%")
+                        ->orWhere('MobileNo', 'LIKE', "%$search%");
+                });
+        }
+
+        $patients = $query->paginate(10); // Adjust pagination as needed
+
+        return view('admin.patient.list', [
+            'patients' => $patients,
+            'search' => $request->search,
+        ]);
+    }
 
 
 }

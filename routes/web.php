@@ -9,6 +9,7 @@ use App\Http\Controllers\PrescriptionController;
 use App\Http\Controllers\HospitalController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\DiagnosisController;
 use App\Http\Controllers\StaffController;
 
 
@@ -43,6 +44,8 @@ Route::post('/admin/patient/add', [PatientController::class, 'store'])->name('ad
 Route::get('/admin/patient/edit/{id}', [PatientController::class, 'editForm'])->name('admin.patient.edit');
 Route::put('/admin/patient/edit/{id}', [PatientController::class, 'update'])->name('admin.patient.update');
 Route::delete('/admin/patient/delete/{id}', [PatientController::class, 'destroy'])->name('admin.patient.destroy');
+Route::get('/admin/patient/search', [PatientController::class, 'search'])->name('admin.patient.search');
+
 
 // hospital
 Route::get('/admin/hospital', [HospitalController::class, 'showList'])->name('admin.hospital');
@@ -52,6 +55,32 @@ Route::get('/admin/hospital/edit/{id}', [HospitalController::class, 'editForm'])
 Route::put('/admin/hospital/edit/{id}', [HospitalController::class, 'update'])->name('admin.hospital.update');
 Route::delete('/admin/hospital/delete/{id}', [HospitalController::class, 'destroy'])->name('admin.hospital.destroy');
 
+// Roles
+Route::get('/admin/role', [RoleController::class, 'showList'])->name('admin.role');
+Route::get('/admin/role/add', [RoleController::class, 'createForm'])->name('admin.role.add');
+Route::post('/admin/role/add', [RoleController::class, 'store'])->name('admin.role.store');
+Route::get('/admin/role/edit/{id}', [RoleController::class, 'editForm'])->name('admin.role.edit');
+Route::put('/admin/role/edit/{id}', [RoleController::class, 'update'])->name('admin.role.update');
+Route::delete('/admin/role/delete/{id}', [RoleController::class, 'destroy'])->name('admin.role.destroy');
 
-Route::get('/admin/role', [RoleController::class, 'showProfile'])->name('admin.roles');
-Route::get('/admin/staff', [StaffController::class, 'showProfile'])->name('admin.staff');
+// Diagnosis
+Route::get('/admin/diagnosis', [DiagnosisController::class, 'showList'])->name('admin.diagnosis');
+Route::get('/admin/diagnosis/add', [DiagnosisController::class, 'createForm'])->name('admin.diagnosis.add');
+Route::post('/admin/diagnosis/add', [DiagnosisController::class, 'store'])->name('admin.diagnosis.store');
+Route::get('/admin/diagnosis/edit/{id}', [DiagnosisController::class, 'editForm'])->name('admin.diagnosis.edit');
+Route::put('/admin/diagnosis/edit/{id}', [DiagnosisController::class, 'update'])->name('admin.diagnosis.update');
+Route::delete('/admin/diagnosis/delete/{id}', [DiagnosisController::class, 'destroy'])->name('admin.diagnosis.destroy');
+
+Route::get('/admin/staff', [StaffController::class, 'showList'])->name('admin.staff');
+Route::get('/admin/staff/add', [StaffController::class, 'createForm'])->name('admin.staff.add');
+Route::post('/admin/staff/add', [StaffController::class, 'store'])->name('admin.staff.store');
+Route::get('/admin/staff/edit/{id}', [StaffController::class, 'editForm'])->name('admin.staff.edit');
+Route::put('/admin/staff/edit/{id}', [StaffController::class, 'update'])->name('admin.staff.update');
+Route::delete('/admin/staff/delete/{id}', [StaffController::class, 'destroy'])->name('admin.staff.destroy');
+
+Route::get('/admin/appointment', [AppointmentController::class, 'showList'])->name('admin.appointment');
+Route::get('/admin/appointment/add-patient', [AppointmentController::class, 'createPatientForm'])->name('admin.appointment.add-patient');
+Route::get('/admin/appointment/{id}/add', [AppointmentController::class, 'createForm'])->name('admin.appointment.add');
+Route::post('/admin/appointment/add-patient', [AppointmentController::class, 'storePatientForm'])->name('admin.appointment.store-patient');
+Route::post('/admin/appointment/{id}/add', [AppointmentController::class, 'store'])->name('admin.appointment.store');
+Route::delete('/admin/appointment/delete/{id}', [AppointmentController::class, 'destroy'])->name('admin.appointment.destroy');

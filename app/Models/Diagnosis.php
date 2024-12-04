@@ -9,6 +9,9 @@ class Diagnosis extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
+    protected $table = 'diagnosis';
     protected $fillable = [
         'DiagnosisName',
         'Date',

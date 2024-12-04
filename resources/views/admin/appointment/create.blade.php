@@ -1,9 +1,8 @@
 @extends('layouts.admin')
 
-@section('title', 'Add Patient')
+@section('title', 'Edit Patient')
 
 @section('content')
-
     <div class="main-panel">
         <div class="content-wrapper">
             <div class="row">
@@ -11,109 +10,135 @@
                     <div class="card shadow">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h4 class="card-title mb-0">Add Patient</h4>
-                                <a href="{{ route('admin.patient') }}" class="btn btn-sm btn-primary">
-                                     <-  Back
+                                <h4 class="card-title mb-0">Book Appointment</h4>
+                                <a href="{{ route('admin.appointment') }}" class="btn btn-sm btn-primary">
+                                    <- Back
                                 </a>
                             </div>
-                            <form id="addPatientForm" action="{{ route('admin.patient.store', ['PatientNo' => $PatientNo]) }}" method="POST"
+                            <form id="editPatientForm" action="{{ route('admin.appointment.store', $patient->Id) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
+
                                 <div class="container">
-                                    <!-- Row 1: First Name and Last Name -->
-                                    <div class="row mt-2">
-                                        <div class="col-md-6">
-                                            <label for="FirstName" class="form-label">First Name<span style="color: red;">*</span></label>
-                                            <input type="text" id="FirstName" name="FirstName" class="form-control"
-                                                placeholder="First Name (Hitesh)" value="{{ old('FirstName') }}" oninput="clearError()">
-                                                @error('FirstName')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-md-2 ml-auto">
+                                                <label for="PatientNo" class="form-label">P. No</label>
+                                                <span id="PatientNo" class="form-control-plaintext bg-light text-muted px-2 rounded">
+                                                    {{ $patient->PatientNo }}
+                                                </span>
+                                            </div>
+                                            <div class="col-md-4 ml-auto">
+                                                <label for="FirstName" class="form-label">First Name</label>
+                                                <span id="FirstName" class="form-control-plaintext bg-light text-muted px-2 rounded">
+                                                    {{ $patient->FirstName }}
+                                                </span>
+                                            </div>
+                                            <div class="col-md-3 ml-auto">
+                                                <label for="LastName" class="form-label">Last Name</label>
+                                                <span id="LastName" class="form-control-plaintext bg-light text-muted px-2 rounded">
+                                                    {{ $patient->LastName }}
+                                                </span>
+                                            </div>
+                                            <div class="col-md-3 ml-auto">
+                                                <label for="MobileNo" class="form-label">Phone</label>
+                                                <span id="MobileNo" class="form-control-plaintext bg-light text-muted px-2 rounded">
+                                                    {{ $patient->MobileNo }}
+                                                </span>
+                                            </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <label for="LastName" class="form-label">Last Name<span style="color: red;">*</span></label>
-                                            <input type="text" id="LastName" name="LastName" class="form-control" value="{{ old('LastName') }}"
-                                                placeholder="Last Name (Ahire)">
-                                                @error('LastName')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
+                                    </div>
+                                    <!-- Patient Fields -->
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-md-4 ml-auto">
+                                                <label for="Doctor" class="form-label">Doctor</label>
+                                                <select class="custom-select" id="DoctorId" Name="DoctorId">
+                                                    <option selected disabled value="">Choose...</option>
+                                                    @foreach($doctors as $item)
+                                                        <option value="{{ $item->Id }}">Dr. {{ $item->FirstName }} {{ $item->LastName }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4 ml-auto">
+                                                <label for="Doctor" class="form-label">Service</label>
+                                                <select class="custom-select" id="ServiceId" Name="ServiceId">
+                                                    @foreach($service as $item)
+                                                        <option value="{{ $item->Id }}">{{ $item->ServiceName }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4 ml-auto">
+                                                <label for="Doctor" class="form-label">Status</label>
+                                                <select class="custom-select" id="Status" Name="StatusId">
+                                                    @foreach($status as $item)
+                                                        <option value="{{ $item->Id }}">{{ $item->StatusName }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-md-4 ml-auto">
+                                                <label for="Doctor" class="form-label">Duration</label>
+                                                <select class="custom-select" id="Duration" Name="Duration">
+                                                  <option selected value="10 min">10 min</option>
+                                                  <option value="15 min">15 min</option>
+                                                  <option value="20 min">20 min</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4 ml-auto">
+                                                <label for="Date" class="form-label">Date</label>
+                                                <input type="date" name="Date" class="form-control" id="Date" value="{{ \Carbon\Carbon::now('Asia/Kolkata')->format('Y-m-d') }}">
+                                            </div>
+                                            @php
+                                                date_default_timezone_set('Asia/Kolkata');
+                                                $currentTime = date('H:i');
+                                            @endphp
+                                            <div class="col-md-4 ml-auto">
+                                                <label for="time" class="form-label">Time</label>
+                                                <div class="input-group">
+                                                    <select class="form-control" name="Hour" id="hour">
+                                                        @for($i = 1; $i <= 12; $i++)
+                                                            <option value="{{ $i }}">{{ sprintf('%02d', $i) }}</option>
+                                                        @endfor
+                                                    </select>
+                                                    <!-- <span>:</span> -->
+                                                    <select class="form-control" name="Minute" id="minute">
+                                                        @for($i = 0; $i < 60; $i += 1) 
+                                                            <option value="{{ $i }}">{{ sprintf('%02d', $i) }}</option>
+                                                        @endfor
+                                                    </select>
+                                                    <select class="form-control" name="AmPm" id="ampm">
+                                                        <option value="AM">AM</option>
+                                                        <option value="PM">PM</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-md-4 ml-auto">
+                                                <label for="ReferBy" class="form-label">Refer By</label>
+                                                <input type="text" name="ReferBy" class="form-control" id="ReferBy">
+                                            </div>
+                                            <div class="col-md-4 ml-auto">
+
+                                            </div>
+                                            <div class="col-md-4 ml-auto">
+
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <!-- Row 2: Email and Phone -->
-                                    <div class="row mt-2">
-                                        <div class="col-md-6">
-                                            <label for="Email" class="form-label">Email</label>
-                                            <input type="Email" id="Email" name="Email" class="form-control" value="{{ old('Email') }}"
-                                                placeholder="Email (hitesh@gmail.com)">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="MobileNo" class="form-label">Phone<span style="color: red;">*</span></label>
-                                            <input type="number" id="MobileNo" name="MobileNo" class="form-control"
-                                                placeholder="Mobile No. (8888888888)" value="{{ old('MobileNo') }}">
-                                                @error('MobileNo')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
-                                        </div>
-                                    </div>
-
-                                    <!-- Row 3: Address and Date of Birth -->
-                                    <div class="row  mt-2">
-                                        <div class="col-md-3">
-                                            <label for="Age" class="form-label">Age</label>
-                                            <input type="number" id="Age" name="Age" class="form-control" value="{{ old('Age') }}"
-                                                placeholder="Age (24)">
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label for="Dob" class="form-label">Date of Birth</label>
-                                            <input type="date" id="Dob" name="Dob" class="form-control" value="{{ old('Dob') }}"
-                                                placeholder="Dob (21-12-1998)">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="Address" class="form-label">Address</label>
-                                            <input type="text" id="Address" name="Address" class="form-control" value="{{ old('Address') }}"
-                                                placeholder="Address (Indira Nagar)">
-                                        </div>
-
-                                    </div>
-
-                                    <!-- Row 4: Gender and File Upload -->
-                                    <div class="row mt-2">
-                                        <div class="col-md-3">
-                                            <label for="Gender" class="form-label">Gender</label>
-                                            <select id="Gender" name="Gender" class="form-control" value="{{ old('Gender') }}">
-                                                <option value="" disabled selected>Select Gender</option>
-                                                <option value="Male">Male</option>
-                                                <option value="Female">Female</option>
-                                                <option value="Other">Other</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label for="BloodGroup" class="form-label">Blood Group</label>
-                                            <input type="text" id="BloodGroup" name="BloodGroup" class="form-control" value="{{ old('BloodGroup') }}"
-                                                placeholder="Blood Group (B+)">
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label for="Pin" class="form-label">Pin</label>
-                                            <input type="number" id="Pin" name="Pin" class="form-control" value="{{ old('Pin') }}"
-                                                placeholder="Pin (423202)">
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label for="City" class="form-label">City</label>
-                                            <input type="text" id="City" name="City" class="form-control" value="{{ old('City') }}"
-                                                placeholder="City (Nashik)">
-                                        </div>
-                                    </div>
-                                    <div class="row mt-3">
-                                        <h5>System Generated PatientNo {{ $PatientNo }}</h5>
-                                    </div>
-                                    <!-- Submit & Reset Button -->
+                                    <!-- Buttons -->
                                     <div class="row mt-4">
                                         <div class="col-md-12 text-center">
-                                            <button id="resetButton" type="button" class="btn btn-secondary">
+                                            <button type="reset" class="btn btn-secondary" id="resetButton">
                                                 Reset</button>
-                                            <button type="submit" class="btn btn-primary">Add
-                                                Patient</button>
+                                            <button type="submit" class="btn btn-primary">Book Appointment</button>
                                         </div>
                                     </div>
                                 </div>
@@ -124,23 +149,30 @@
             </div>
         </div>
     </div>
+
+    <!-- JavaScript to Force Reset -->
     <script>
         document.getElementById('resetButton').addEventListener('click', function(e) {
-            e.preventDefault();
-            const form = document.getElementById('addPatientForm');
+            e.preventDefault();  // Prevent the default reset behavior
+            const form = document.getElementById('editPatientForm');
             form.reset();
         });
     </script>
     <script>
-        const inputFields = document.querySelectorAll('#FirstName, #LastName, #MobileNo');
-        inputFields.forEach(function(input) {
-            input.addEventListener('input', function() {
-                let errorElement = input.closest('.col-md-6').querySelector('.text-danger');
-                if (errorElement) {
-                    errorElement.remove();
-                }
-            });
+        document.addEventListener("DOMContentLoaded", function () {
+            const now = new Date();
+            let hours = now.getHours();
+            const minutes = now.getMinutes();
+            const ampm = hours >= 12 ? "PM" : "AM";
+
+            // Convert to 12-hour format
+            hours = hours % 12;
+            hours = hours ? hours : 12; // If hour is 0, set to 12
+
+            // Set the values in the dropdowns
+            document.getElementById('hour').value = hours;
+            document.getElementById('minute').value = minutes;
+            document.getElementById('ampm').value = ampm;
         });
     </script>
-
 @endsection

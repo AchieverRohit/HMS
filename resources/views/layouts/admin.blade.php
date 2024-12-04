@@ -6,25 +6,26 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Skydash Admin</title>
+    <title>HMS Admin</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="/vendors/feather/feather.css">
     <link rel="stylesheet" href="/vendors/ti-icons/css/themify-icons.css">
     <link rel="stylesheet" href="/vendors/css/vendor.bundle.base.css">
     <!-- endinject -->
     <!-- Plugin css for this page -->
-    <link rel="stylesheet" href="/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+    <!-- <link rel="stylesheet" href="/vendors/datatables.net-bs4/dataTables.bootstrap4.css"> -->
     <link rel="stylesheet" href="/vendors/ti-icons/css/themify-icons.css">
     <link rel="stylesheet" type="text/css" href="js/select.dataTables.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+
     <!-- End plugin css for this page -->
     <!-- inject:css -->
     <link rel="stylesheet" href="/css/vertical-layout-light/style.css">
     <!-- endinject -->
     <link rel="shortcut icon" href="/images/favicon.png" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"> -->
 </head>
-
-<body>
     <div class="container-scroller">
         <!-- partial:partials/_navbar.html -->
         <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
@@ -161,16 +162,22 @@
                         </a>
                     </li>
                     <!-- admin.hospital -->
-                     <li class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link {{ Route::is('admin.hospital') ? 'active' : '' }}"
                             href="{{ route('admin.hospital') }}">
                             <i class="icon-layout menu-icon"></i>
                             <span class="menu-title">Hospitals</span>
                         </a>
                     </li>
-
+                    <li class="nav-item">
+                        <a class="nav-link {{ Route::is('admin.appointment') ? 'active' : '' }}"
+                            href="{{ route('admin.appointment') }}">
+                            <i class="icon-layout menu-icon"></i>
+                            <span class="menu-title">Appointment</span>
+                        </a>
+                    </li>
                     <!--<li class="nav-item">
-                        <a class="nav-link 
+                        <a class="nav-link
                             href="">
                             <i class="icon-layout menu-icon"></i>
                             <span class="menu-title">Doctors</span>
@@ -178,7 +185,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link 
+                        <a class="nav-link
                             href="">
                             <i class="icon-layout menu-icon"></i>
                             <span class="menu-title">Prescription</span>
@@ -191,17 +198,17 @@
                             <i class="icon-layout menu-icon"></i>
                             <span class="menu-title">Hospital</span>
                         </a>
-                    </li>
+                    </li> -->
 
                     <li class="nav-item">
-                        <a class="nav-link {{ Route::is('admin.roles') ? 'active' : '' }}"
-                            href="{{ route('admin.roles') }}">
+                        <a class="nav-link {{ Route::is('admin.role') ? 'active' : '' }}"
+                            href="{{ route('admin.role') }}">
                             <i class="icon-layout menu-icon"></i>
                             <span class="menu-title">Roles</span>
                         </a>
-                    </li> -->
+                    </li> 
 
-                    <!-- <li class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link {{ Route::is('admin.staff') ? 'active' : '' }}"
                             href="{{ route('admin.staff') }}">
                             <i class="icon-layout menu-icon"></i>
@@ -210,6 +217,14 @@
                     </li>
 
                     <li class="nav-item">
+                        <a class="nav-link {{ Route::is('admin.diagnosis') ? 'active' : '' }}"
+                            href="{{ route('admin.diagnosis') }}">
+                            <i class="icon-layout menu-icon"></i>
+                            <span class="menu-title">Diagnosis</span>
+                        </a>
+                    </li>
+
+                    <!-- <li class="nav-item">
                         <a class="nav-link {{ request()->is('admin/user*') ? 'active' : '' }}" data-toggle="collapse"
                             href="#form-elements" aria-expanded="false" aria-controls="form-elements">
                             <i class="icon-columns menu-icon"></i>
@@ -221,7 +236,7 @@
                                 <li class="nav-item"><a
                                         class="nav-link {{ request()->is('admin/user') ? 'active' : '' }}"
                                         href="{{ route('admin.user') }}">User List</a></li>
-                            
+
                             </ul>
                         </div>
                     </li> -->
@@ -337,6 +352,8 @@
     <script src="/vendors/datatables.net/jquery.dataTables.js"></script>
     <script src="/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
     <script src="/js/dataTables.select.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- End plugin js for this page -->
     <!-- inject:js -->

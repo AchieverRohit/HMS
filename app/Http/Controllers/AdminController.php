@@ -9,8 +9,6 @@ use App\Models\Admin;
 use App\Models\User;
 use App\Models\Hospital;
 
-
-
 class AdminController extends Controller
 {
     public function showLogin()
@@ -70,36 +68,41 @@ class AdminController extends Controller
         $request->session()->put('LoggedInfo', $adminInfo);
 
         // Redirect to the dashboard
-        return view('admin.dashboard', [
-            'LoggedAdminInfo' => $adminInfo,
-            'HospitalInfo' => $HospitalInfo
-        ]);
+        return redirect()->route('admin.dashboard')->with('success','Login Successfull');
+        // return view('admin.dashboard');
+        // return $this->showDashboard();
+        // return view('admin.dashboard', [
+        //     'LoggedInfo' => $adminInfo,
+        //     'HospitalInfo' => $HospitalInfo
+        // ]);
     }
 
     public function showDashboard()
     {
-        $LoggedAdminInfo = User::find(session('LoggedAdminInfo'));
+        // $LoggedAdminInfo = User::find(session('LoggedInfo'));
+        return view('admin.dashboard');
 
-        if (!$LoggedAdminInfo) {
-            return redirect()->route('admin.login')->with('fail', 'You must be logged in to access the dashboard');
-        }
-
-        return view('admin.dashboard', [
-            'LoggedAdminInfo' => $LoggedAdminInfo,
-        ]);
+        // if (!$LoggedAdminInfo) {
+        //     return redirect()->route('admin.login')->with('fail', 'You must be logged in to access the dashboard');
+        // }else{
+        //     return view('admin.dashboard');
+        // }
+        // return view('admin.dashboard', [
+        //     'LoggedInfo' => $LoggedAdminInfo,
+        // ]);
     }
 
     public function showProfile(Request $request)
     {
         // Get the logged-in admin's information from the session
-        $LoggedAdminInfo = User::find(session('LoggedAdminInfo'));
+        $LoggedAdminInfo = User::find(session('LoggedInfo'));
         if (!$LoggedAdminInfo) {
             return redirect()->route('admin.login')->with('fail', 'You must be logged in to access the profile page');
         }
 
         // Pass the admin data to the profile view
         return view('admin.profile', [
-            'LoggedAdminInfo' => $LoggedAdminInfo,
+            'LoggedInfo' => $LoggedAdminInfo,
         ]);
     }
 
@@ -113,7 +116,7 @@ class AdminController extends Controller
         ]);
 
         // Get the logged-in admin's information from the session
-        $admin = User::find(session('LoggedAdminInfo'));
+        $admin = User::find(session('LoggedInfo'));
 
         if (!$admin) {
             return redirect()->route('admin.login')->with('fail', 'You must be logged in to update the profile');
@@ -146,8 +149,8 @@ class AdminController extends Controller
     public function logout()
     {
         // Clear the session data for the logged-in admin
-        session()->forget('LoggedAdminInfo');
-
+        session()->forget('LoggedInfo');
+        
         // Redirect to the login page
         return redirect()->route('admin.login');
     }
@@ -156,7 +159,7 @@ class AdminController extends Controller
     {
         // Fetch users from the database (assuming you have a User model)
         $users = User::all(); // You might want to paginate or filter users
-        $LoggedAdminInfo = User::find(session('LoggedAdminInfo'));
+        $LoggedAdminInfo = User::find(session('LoggedInfo'));
 
         if (!$LoggedAdminInfo) {
             return redirect()->route('admin.login')->with('fail', 'You must be logged in to access the profile page');
@@ -164,7 +167,7 @@ class AdminController extends Controller
 
         // Pass the admin data to the profile view
         return view('admin.user', [
-            'LoggedAdminInfo' => $LoggedAdminInfo,
+            'LoggedInfo' => $LoggedAdminInfo,
             'users' => $users
         ]);
         // Pass the users data to the view
@@ -179,13 +182,11 @@ class AdminController extends Controller
             'role' => 'required|string',
             'picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-
         // Create a new User instance
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
         $user->role = $request->role;
-
         // Handle the picture file upload
         if ($request->hasFile('picture')) {
             $file = $request->file('picture');
@@ -193,14 +194,11 @@ class AdminController extends Controller
             $path = $file->storeAs('profile_pictures', $filename, 'public');
             $user->picture = $path;
         }
-
         // Save the user to the database
         $user->save();
-
         // Redirect to the user list with a success message
         return redirect()->route('admin.user')->with('success', 'User created successfully.');
     }
-
 
     // Update the specified user in storage
     public function update(Request $request, $id)
@@ -236,7 +234,5 @@ class AdminController extends Controller
 
         return redirect()->route('admin.user')->with('success', 'User deleted successfully.');
     }
-
-
 
 }
