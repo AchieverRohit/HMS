@@ -8,7 +8,22 @@
         <div class="ml-2 mr-2 content-wrapper">
             <div class="row">
                 <div class="col-lg-12 grid-margin stretch-card">
+
                     <div class="card">
+                        <div class="card-header">
+                            <form id="searchPatientForm" action="{{ route('admin.patient') }}" method="GET"
+                                autocomplete="off">
+                                <div class="position-relative">
+                                    <input type="text" name="search_patient" id="search_patient" class="form-control"
+                                        placeholder="Search by Patient ID, First Name, Last Name, or Mobile Number"
+                                        value="{{ request('search_patient') }}" oninput="filterSuggestions()" />
+                                    <ul id="suggestions" class="list-group position-absolute w-100"
+                                        style="z-index: 1000; display: none;">
+                                        <!-- Suggestions will appear here -->
+                                    </ul>
+                                </div>
+                            </form>
+                        </div>
                         <div class="card-body">
                             <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
                                 <!-- Title -->
@@ -65,30 +80,32 @@
                                                         </svg>
                                                     </a>
                                                     <!-- <form action="{{ route('admin.patient.destroy', $patient->Id) }}"
-                                                        method="POST" style="display: inline-block;">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-sm btn-danger">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                                height="16" fill="currentColor" class="bi bi-trash3-fill"
-                                                                viewBox="0 0 16 16">
-                                                                <path
-                                                                    d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5" />
-                                                            </svg>
-                                                        </button>
-                                                    </form> -->
-                                                    <form id="delete-form-{{ $patient->Id }}" 
-                                                        action="{{ route('admin.patient.destroy', $patient->Id) }}" 
-                                                        method="POST" 
-                                                        style="display: none;">
+                                                                                                                                                        method="POST" style="display: inline-block;">
+                                                                                                                                                        @csrf
+                                                                                                                                                        @method('DELETE')
+                                                                                                                                                        <button type="submit" class="btn btn-sm btn-danger">
+                                                                                                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                                                                                                                                height="16" fill="currentColor" class="bi bi-trash3-fill"
+                                                                                                                                                                viewBox="0 0 16 16">
+                                                                                                                                                                <path
+                                                                                                                                                                    d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5" />
+                                                                                                                                                            </svg>
+                                                                                                                                                        </button>
+                                                                                                                                                    </form> -->
+                                                    <form id="delete-form-{{ $patient->Id }}"
+                                                        action="{{ route('admin.patient.destroy', $patient->Id) }}"
+                                                        method="POST" style="display: none;">
                                                         @csrf
                                                         @method('DELETE')
                                                     </form>
 
-                                                    <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete({{ $patient->Id }})">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" 
-                                                            class="bi bi-trash3-fill" viewBox="0 0 16 16">
-                                                            <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5" />
+                                                    <button type="button" class="btn btn-sm btn-danger"
+                                                        onclick="confirmDelete({{ $patient->Id }})">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                            height="16" fill="currentColor" class="bi bi-trash3-fill"
+                                                            viewBox="0 0 16 16">
+                                                            <path
+                                                                d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5" />
                                                         </svg>
                                                     </button>
                                                 </td>
@@ -108,21 +125,82 @@
 
     @endsection
     <script>
-    function confirmDelete(patientId) {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "Do you realy want to delete patient",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!',
-            cancelButtonText: 'Cancel'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Submit the delete form
-                document.getElementById('delete-form-' + patientId).submit();
+        const patients = @json($patients->items());
+        console.log(patients);
+        const filterSuggestions = () => {
+            const query = document.getElementById("search_patient").value.toLowerCase();
+            const suggestionsList = document.getElementById("suggestions");
+
+            suggestionsList.innerHTML = ""; // Clear previous suggestions
+
+            if (!query) {
+                suggestionsList.style.display = "none";
+                return;
             }
-        });
-    }
-</script>
+
+            try {
+                const matches = patients.filter((patient) => {
+                    const patientNo = patient.PatientNo ? patient.PatientNo.toString() : "";
+                    const firstName = patient.FirstName ? patient.FirstName.toLowerCase() : "";
+                    const lastName = patient.LastName ? patient.LastName.toLowerCase() : "";
+                    const mobileNo = patient.MobileNo ? patient.MobileNo.toString() : "";
+
+
+                    return (
+                        patientNo.includes(query) ||
+                        firstName.includes(query) ||
+                        lastName.includes(query) ||
+                        mobileNo.includes(query)
+                    );
+                });
+
+                if (matches.length > 0) {
+                    matches.forEach((patient) => {
+                        const li = document.createElement("li");
+                        li.className = "list-group-item list-group-item-action";
+                        li.textContent = `${patient.FirstName || ""} ${patient.LastName || ""} - ${
+                    patient.MobileNo || "N/A"
+                } (ID: ${patient.PatientNo || "N/A"})`;
+                        li.style.cursor = "pointer";
+
+                        li.onclick = () => {
+                            document.getElementById("search_patient").value = `${patient.FirstName || ""} ${
+                        patient.LastName || ""
+                    }`;
+                            suggestionsList.style.display = "none";
+                            document.getElementById("searchPatientForm").submit();
+                        };
+
+                        suggestionsList.appendChild(li);
+                    });
+
+                    suggestionsList.style.display = "block";
+                } else {
+                    suggestionsList.style.display = "none";
+                }
+            } catch (error) {
+                console.error("Error filtering suggestions:", error);
+            }
+        };
+
+
+
+
+        function confirmDelete(patientId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "Do you realy want to delete patient",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Submit the delete form
+                    document.getElementById('delete-form-' + patientId).submit();
+                }
+            });
+        }
+    </script>
