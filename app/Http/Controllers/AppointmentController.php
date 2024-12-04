@@ -7,6 +7,7 @@ use App\Models\Patient;
 use App\Models\User;
 use App\Models\Service;
 use App\Models\AppointmentStatus;
+use Illuminate\Support\Facades\Validator;
 
 
 class AppointmentController extends Controller
@@ -31,7 +32,9 @@ class AppointmentController extends Controller
 
         $appointments = $appointmentsQuery->get();
 
-        return view('admin.appointment.list', compact('appointments','PatientNo'));
+        $patients = Patient::all();
+
+        return view('admin.appointment.list', compact('appointments','PatientNo','patients'));
     }
 
 
@@ -58,21 +61,45 @@ class AppointmentController extends Controller
 
     public function store(Request $request, $id)
     {
-        dd($request->all());
-        // dd("data");
-        // $request->validate([
-        //     'FirstName' => 'required|max:255',
-        //     'MobileNo' => 'required|digits:10',
-        //     'Gender' => 'required',
-        //     'Email' => 'nullable|email',
-        //     // Add more validation rules as necessary
-        // ]);
+        $request->validate([
+            'DoctorId'   => 'required',
+            'ServiceId'  => 'required',
+            'StatusId'   => 'required',
+            'Duration'   => 'required',
+            'Date'       => 'required',
+            'Hour'       => 'required',
+            'Minute'     => 'required',
+            'AmPm'       => 'required',
+            'ReferBy'    => 'nullable',
+        ]);
+        $hospitalId = session('LoggedInfo')->HospitalId;
+        $appointment = $appointment = Appointment::where('HospitalId', 1)
+        ->orderBy('id', 'desc')
+        ->first();
+
+        $newAppointmentNumber = $appointment['AppointmentTokenNo'] + 1;
+        // dd($appointment['AppointmentTokenNo']);
+        $appointment = new Appointment();
     
-        // // Save the data to the database
-        // Appointment::create($request->all());
+        $time = $this->convertTo24HourFormat($request->Hour, $request->Minute, $request->AmPm);
     
-        // return redirect()->route('admin.appointment')->with('success', 'Appointment added successfully.');
+        $dateTime = $request->Date . ' ' . $time;
+    
+        $appointment->AppointmentTokenNo = $newAppointmentNumber;
+        $appointment->DoctorId = $request->DoctorId;
+        $appointment->PatientId = $id;
+        $appointment->ServiceId = $request->ServiceId;
+        $appointment->Status = $request->StatusId ?? '';
+        $appointment->ReffernceBy = $request->ReferBy ?? null;
+        $appointment->DateTime = $dateTime;
+        $appointment->Duration = $request->Duration;
+        $appointment->HospitalId = $hospitalId;
+    
+        $appointment->save();
+        // Return a success message
+        return redirect()->route('admin.appointment')->with('success', 'Patient updated successfully!');
     }
+    
     
     public function createPatientForm(){
         $lastPatient = Patient::orderBy('PatientNo', 'desc')->first();
@@ -125,6 +152,21 @@ class AppointmentController extends Controller
         return redirect()->route('admin.appointment')->with('success', 'Appointment deleted successfully.');
     }
 
-
+    private function convertTo24HourFormat($hour, $minute, $amPm)
+    {
+        // Convert to 24-hour time format
+        $hour = (int) $hour;
+        $minute = (int) $minute;
+    
+        if ($amPm == 'PM' && $hour != 12) {
+            $hour += 12;
+        }
+    
+        if ($amPm == 'AM' && $hour == 12) {
+            $hour = 0;
+        }
+    
+        return sprintf('%02d:%02d:00', $hour, $minute);
+    }
 
 }

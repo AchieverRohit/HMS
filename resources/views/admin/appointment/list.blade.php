@@ -6,13 +6,29 @@
     <div class="main-panel">
         <div class="ml-2 mr-2 content-wrapper">
             <div class="row">
-                <div class="col-md-2">
-                    <a href="{{ route('admin.appointment.add-patient') }}" class="btn btn-sm btn-primary">
-                        <i class="fas fa-user-plus"></i>
-                    </a>
-                </div>
                 <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                <form id="searchPatientForm" class="col-md-11" action="{{ route('admin.patient') }}" method="GET"
+                                    autocomplete="off">
+                                    <div class="position-relative">
+                                        <input type="text" name="search_patient" id="search_patient" class="form-control"
+                                            placeholder="Search by Patient ID, First Name, Last Name, or Mobile Number"
+                                            value="{{ request('search_patient') }}" oninput="filterSuggestions()" />
+                                        <ul id="suggestions" class="list-group position-absolute w-100"
+                                            style="z-index: 1000; display: none;">
+                                            <!-- Suggestions will appear here -->
+                                        </ul>
+                                    </div>
+                                </form>
+                                <div class="col-md-1">
+                                    <a href="{{ route('admin.appointment.add-patient') }}" class="btn btn-sm btn-primary">
+                                        <i class="fas fa-user-plus"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                         <div class="card-body">
                             <div class="row d-flex justify-content-between">
                                 <div class="col-md-2">
@@ -73,7 +89,7 @@
                                             <td>{{ $appointment->DateTime }}</td>
                                             <td>{{ $appointment->Duration }}</td>
                                             <td>
-                                                <a href="{{ route('admin.appointment.edit', $appointment->Id) }}"
+                                                <a href="{{ route('admin.appointment', $appointment->Id) }}"
                                                     class="btn btn-sm btn-info">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                         height="16" fill="currentColor" class="bi bi-pencil-fill"
@@ -108,4 +124,58 @@
             </div>
         </div>
     </div>
+    <script>
+       const patients = @json($patients->toArray());    
+       console.log(patients);
+       const filterSuggestions = () => {
+           const query = document.getElementById("search_patient").value.toLowerCase();
+           const suggestionsList = document.getElementById("suggestions");  
+           suggestionsList.innerHTML = ""; // Clear previous suggestions    
+           if (!query) {
+               suggestionsList.style.display = "none";
+               return;
+           }
+       
+           try {
+               const matches = patients.filter((patient) => {
+                   const patientNo = patient.PatientNo ? patient.PatientNo.toString() : "";
+                   const firstName = patient.FirstName ? patient.FirstName.toLowerCase() : "";
+                   const lastName = patient.LastName ? patient.LastName.toLowerCase() : "";
+                   const mobileNo = patient.MobileNo ? patient.MobileNo.toString() : "";    
+                   return (
+                       patientNo.includes(query) ||
+                       firstName.includes(query) ||
+                       lastName.includes(query) ||
+                       mobileNo.includes(query)
+                   );
+               });
+           
+               if (matches.length > 0) {
+                   matches.forEach((patient) => {
+                       const li = document.createElement("li");
+                       li.className = "list-group-item list-group-item-action";
+                       li.textContent = `${patient.FirstName || ""} ${patient.LastName || ""} - ${
+                           patient.MobileNo || "N/A"
+                       } (ID: ${patient.PatientNo || "N/A"})`;
+                       li.style.cursor = "pointer"; 
+                       // Modify this onclick to redirect to the desired URL
+                       li.onclick = () => {
+                           const patientId = patient.Id || "";
+                           const url = `/admin/appointment/${patientId}/add`; // Build the URL with patient ID
+                           window.location.href = url; // Redirect to the URL
+                       };
+                   
+                       suggestionsList.appendChild(li);
+                   });
+               
+                   suggestionsList.style.display = "block";
+               } else {
+                   suggestionsList.style.display = "none";
+               }
+           } catch (error) {
+               console.error("Error filtering suggestions:", error);
+           }
+       };
+    </script>
+
     @endsection
