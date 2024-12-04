@@ -44,6 +44,8 @@ Route::post('/admin/patient/add', [PatientController::class, 'store'])->name('ad
 Route::get('/admin/patient/edit/{id}', [PatientController::class, 'editForm'])->name('admin.patient.edit');
 Route::put('/admin/patient/edit/{id}', [PatientController::class, 'update'])->name('admin.patient.update');
 Route::delete('/admin/patient/delete/{id}', [PatientController::class, 'destroy'])->name('admin.patient.destroy');
+Route::get('/admin/patient/search', [PatientController::class, 'search'])->name('admin.patient.search');
+
 
 // hospital
 Route::get('/admin/hospital', [HospitalController::class, 'showList'])->name('admin.hospital');

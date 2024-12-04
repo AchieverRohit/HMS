@@ -101,9 +101,7 @@
                                                 value="{{ old('City') }}" placeholder="City (Nashik)">
                                         </div>
                                     </div>
-                                    <div class="row mt-3">
-                                        <h5>System Generated AppointmentNo {{ $AppointmentNo }}</h5>
-                                    </div>
+
                                     <!-- Submit & Reset Button -->
                                     <div class="row mt-4">
                                         <div class="col-md-12 text-center">
