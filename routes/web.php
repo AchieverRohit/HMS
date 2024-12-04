@@ -77,8 +77,8 @@ Route::put('/admin/staff/edit/{id}', [StaffController::class, 'update'])->name('
 Route::delete('/admin/staff/delete/{id}', [StaffController::class, 'destroy'])->name('admin.staff.destroy');
 
 Route::get('/admin/appointment', [AppointmentController::class, 'showList'])->name('admin.appointment');
-Route::get('/admin/appointment/add', [AppointmentController::class, 'createForm'])->name('admin.appointment.add');
-Route::post('/admin/appointment/add', [AppointmentController::class, 'store'])->name('admin.appointment.store');
-Route::get('/admin/appointment/edit/{id}', [AppointmentController::class, 'editForm'])->name('admin.appointment.edit');
-Route::put('/admin/appointment/edit/{id}', [AppointmentController::class, 'update'])->name('admin.appointment.update');
+Route::get('/admin/appointment/add-patient', [AppointmentController::class, 'createPatientForm'])->name('admin.appointment.add-patient');
+Route::get('/admin/appointment/{id}/add', [AppointmentController::class, 'createForm'])->name('admin.appointment.add');
+Route::post('/admin/appointment/add-patient', [AppointmentController::class, 'storePatientForm'])->name('admin.appointment.store-patient');
+Route::post('/admin/appointment/{id}/add', [AppointmentController::class, 'store'])->name('admin.appointment.store');
 Route::delete('/admin/appointment/delete/{id}', [AppointmentController::class, 'destroy'])->name('admin.appointment.destroy');
