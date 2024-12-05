@@ -53,6 +53,7 @@
                                             <th>PatientId</th>
                                             <th>Name</th>
                                             <th>Email</th>
+                                            <th>Book Appointment</th>
                                             <th>Phone</th>
                                             <th>Date of Birth</th>
                                             <th>Gender</th>
@@ -65,6 +66,10 @@
                                                 <td>{{ $patient->PatientNo }}</td>
                                                 <td>{{ $patient->FirstName }} {{ $patient->LastName }}</td>
                                                 <td>{{ $patient->Email }}</td>
+                                                <td><a href="{{ route('admin.appointment.add', $patient->Id) }}"
+                                                        class="btn btn-sm btn-primary">
+                                                        Book Appointment
+                                                    </a></td>
                                                 <td>{{ $patient->MobileNo }}</td>
                                                 <td>{{ $patient->Dob }}</td>
                                                 <td>{{ $patient->Gender }}</td>
