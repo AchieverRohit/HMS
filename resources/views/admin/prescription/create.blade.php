@@ -1,146 +1,188 @@
 @extends('layouts.admin')
 
-@section('title', 'Add Patient')
+@section('title', 'Prescription Form')
 
 @section('content')
+    <div class="container py-4">
 
-    <div class="main-panel">
-        <div class="content-wrapper">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card shadow">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h4 class="card-title mb-0">Add Patient</h4>
-                                <a href="{{ route('admin.patient') }}" class="btn btn-sm btn-primary">
-                                     <-  Back
-                                </a>
-                            </div>
-                            <form id="addPatientForm" action="{{ route('admin.patient.store', ['PatientNo' => $PatientNo]) }}" method="POST"
-                                enctype="multipart/form-data">
-                                @csrf
-                                <div class="container">
-                                    <!-- Row 1: First Name and Last Name -->
-                                    <div class="row mt-2">
-                                        <div class="col-md-6">
-                                            <label for="FirstName" class="form-label">First Name<span style="color: red;">*</span></label>
-                                            <input type="text" id="FirstName" name="FirstName" class="form-control"
-                                                placeholder="First Name (Hitesh)" value="{{ old('FirstName') }}" oninput="clearError()">
-                                                @error('FirstName')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="LastName" class="form-label">Last Name<span style="color: red;">*</span></label>
-                                            <input type="text" id="LastName" name="LastName" class="form-control" value="{{ old('LastName') }}"
-                                                placeholder="Last Name (Ahire)">
-                                                @error('LastName')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
-                                        </div>
-                                    </div>
-
-                                    <!-- Row 2: Email and Phone -->
-                                    <div class="row mt-2">
-                                        <div class="col-md-6">
-                                            <label for="Email" class="form-label">Email</label>
-                                            <input type="Email" id="Email" name="Email" class="form-control" value="{{ old('Email') }}"
-                                                placeholder="Email (hitesh@gmail.com)">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="MobileNo" class="form-label">Phone<span style="color: red;">*</span></label>
-                                            <input type="number" id="MobileNo" name="MobileNo" class="form-control"
-                                                placeholder="Mobile No. (8888888888)" value="{{ old('MobileNo') }}">
-                                                @error('MobileNo')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
-                                        </div>
-                                    </div>
-
-                                    <!-- Row 3: Address and Date of Birth -->
-                                    <div class="row  mt-2">
-                                        <div class="col-md-3">
-                                            <label for="Age" class="form-label">Age</label>
-                                            <input type="number" id="Age" name="Age" class="form-control" value="{{ old('Age') }}"
-                                                placeholder="Age (24)">
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label for="Dob" class="form-label">Date of Birth</label>
-                                            <input type="date" id="Dob" name="Dob" class="form-control" value="{{ old('Dob') }}"
-                                                placeholder="Dob (21-12-1998)">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="Address" class="form-label">Address</label>
-                                            <input type="text" id="Address" name="Address" class="form-control" value="{{ old('Address') }}"
-                                                placeholder="Address (Indira Nagar)">
-                                        </div>
-
-                                    </div>
-
-                                    <!-- Row 4: Gender and File Upload -->
-                                    <div class="row mt-2">
-                                        <div class="col-md-3">
-                                            <label for="Gender" class="form-label">Gender</label>
-                                            <select id="Gender" name="Gender" class="form-control" value="{{ old('Gender') }}">
-                                                <option value="" disabled selected>Select Gender</option>
-                                                <option value="Male">Male</option>
-                                                <option value="Female">Female</option>
-                                                <option value="Other">Other</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label for="BloodGroup" class="form-label">Blood Group</label>
-                                            <input type="text" id="BloodGroup" name="BloodGroup" class="form-control" value="{{ old('BloodGroup') }}"
-                                                placeholder="Blood Group (B+)">
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label for="Pin" class="form-label">Pin</label>
-                                            <input type="number" id="Pin" name="Pin" class="form-control" value="{{ old('Pin') }}"
-                                                placeholder="Pin (423202)">
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label for="City" class="form-label">City</label>
-                                            <input type="text" id="City" name="City" class="form-control" value="{{ old('City') }}"
-                                                placeholder="City (Nashik)">
-                                        </div>
-                                    </div>
-                                    <div class="row mt-3">
-                                        <h5>System Generated PatientNo {{ $PatientNo }}</h5>
-                                    </div>
-                                    <!-- Submit & Reset Button -->
-                                    <div class="row mt-4">
-                                        <div class="col-md-12 text-center">
-                                            <button id="resetButton" type="button" class="btn btn-secondary">
-                                                Reset</button>
-                                            <button type="submit" class="btn btn-primary">Add
-                                                Patient</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+        <!-- Prescription Form -->
+        <form action="{{ route('admin.prescription.store', $id) }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <!-- Complaints Section -->
+            <div class="mb-5">
+                <div class="d-flex align-items-center mb-3">
+                    <h2 class="h5 mb-0">Complaints</h2>
                 </div>
+                <table class="table table-bordered" id="complaintsTable">
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Complaint Name</th>
+                            <th>Frequency</th>
+                            <th>Severity</th>
+                            <th>Duration</th>
+                            <th>Date</th>
+                            <th>Note</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td><input type="text" class="form-control " name="complaintName[]"></td>
+                            <td><input type="text" class="form-control" name="frequency[]"></td>
+                            <td><input type="text" class="form-control" name="severity[]"></td>
+                            <td><input type="text" class="form-control" name="duration[]"></td>
+                            <td><input type="date" class="form-control" name="date[]"></td>
+                            <td><input type="text" class="form-control" name="note[]"></td>
+                            <td class="text-center">
+                                <button class="btn btn-sm btn-light p-0 remove-row">
+                                    <span class="text-danger">&times;</span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-        </div>
+
+            <!-- Diagnosis Section -->
+            <div class="mb-5">
+                <div class="d-flex align-items-center mb-3">
+                    <h2 class="h5 mb-0">Diagnosis</h2>
+                </div>
+                <table class="table table-bordered" id="diagnosisTable">
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Diagnosis</th>
+                            <th>Duration</th>
+                            <th>Date</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td><input type="text" class="form-control" name="diagnosisName[]"></td>
+                            <td><input type="text" class="form-control" name="duration[]"></td>
+                            <td><input type="date" class="form-control" name="date[]"></td>
+                            <td class="text-center">
+                                <button class="btn btn-sm btn-light p-0 remove-row">
+                                    <span class="text-danger">&times;</span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Tests Section -->
+            <div class="mb-5">
+                <div class="d-flex align-items-center mb-3">
+                    <h2 class="h5 mb-0">Tests</h2>
+                </div>
+                <table class="table table-bordered" id="testsTable">
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Test Name</th>
+                            <th>Cost</th>
+                            <th>Description</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td><input type="text" class="form-control" name="testName[]"></td>
+                            <td><input type="text" class="form-control" name="cost[]"></td>
+                            <td><input type="text" class="form-control" name="description[]"></td>
+                            <td class="text-center">
+                                <button class="btn btn-sm btn-light p-0 remove-row">
+                                    <span class="text-danger">&times;</span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Medicines Section -->
+            <div class="mb-5">
+                <div class="d-flex align-items-center mb-3">
+                    <h2 class="h5 mb-0">Medicines</h2>
+                </div>
+                <table class="table table-bordered" id="medicinesTable">
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Medicine Name</th>
+                            <th>Dose</th>
+                            <th>Frequency</th>
+                            <th>When To Take</th>
+                            <th>Duration</th>
+                            <th>Instruction</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td><input type="text" class="form-control" name="medicineName[]"></td>
+                            <td><input type="text" class="form-control" name="dose[]"></td>
+                            <td><input type="text" class="form-control" name="frequency[]"></td>
+                            <td><input type="text" class="form-control" name="whenToTake[]"></td>
+                            <td><input type="text" class="form-control" name="duration[]"></td>
+                            <td><input type="text" class="form-control" name="instruction[]"></td>
+                            <td class="text-center">
+                                <button class="btn btn-sm btn-light p-0 remove-row">
+                                    <span class="text-danger">&times;</span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mb-5">
+                <label for="NextVisitDate">Follow up Date</label>
+                <input type="date" name="NextVisitDate" id="NextVisitDate">
+            </div>
+            <!-- Save Prescription Button -->
+            <div class="text-center">
+                <button class="btn btn-primary">Save Prescription</button>
+            </div>
+        </form>
     </div>
     <script>
-        document.getElementById('resetButton').addEventListener('click', function(e) {
-            e.preventDefault();
-            const form = document.getElementById('addPatientForm');
-            form.reset();
-        });
-    </script>
-    <script>
-        const inputFields = document.querySelectorAll('#FirstName, #LastName, #MobileNo');
-        inputFields.forEach(function(input) {
-            input.addEventListener('input', function() {
-                let errorElement = input.closest('.col-md-6').querySelector('.text-danger');
-                if (errorElement) {
-                    errorElement.remove();
-                }
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = ['complaintsTable', 'diagnosisTable', 'testsTable', 'medicinesTable'];
+
+            sections.forEach(sectionId => {
+                const tableBody = document.querySelector(`#${sectionId} tbody`);
+
+                // Add a new row when any field is filled
+                tableBody.addEventListener('input', () => {
+                    const lastRow = tableBody.lastElementChild;
+                    const inputs = lastRow.querySelectorAll('input');
+
+                    const allFilled = Array.from(inputs).some(input => input.value.trim() !== "");
+                    if (allFilled) {
+                        const newRow = lastRow.cloneNode(true);
+                        Array.from(newRow.querySelectorAll('input')).forEach(input => input.value =
+                            '');
+                        tableBody.appendChild(newRow);
+                    }
+                });
+
+                // Remove a row
+                tableBody.addEventListener('click', (e) => {
+                    if (e.target.closest('.remove-row')) {
+                        const row = e.target.closest('tr');
+                        if (tableBody.children.length > 1) row.remove();
+                    }
+                });
             });
         });
     </script>
-
 @endsection

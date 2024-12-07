@@ -88,8 +88,8 @@ Route::get('/admin/appointment/edit/{id}', [AppointmentController::class, 'editF
 Route::put('/admin/appointment/edit/{id}', [AppointmentController::class, 'update'])->name('admin.appointment.update');
 
 Route::get('/admin/prescription', [PrescriptionController::class, 'showList'])->name('admin.prescription');
-Route::get('/admin/prescription/add', [PrescriptionController::class, 'createForm'])->name('admin.prescription.add');
-Route::post('/admin/prescription/add', [PrescriptionController::class, 'store'])->name('admin.prescription.store');
+Route::get('/admin/appointment/add/{id}', [PrescriptionController::class, 'createForm'])->name('admin.prescription.add');
+Route::post('/admin/prescription/add/{id}', [PrescriptionController::class, 'store'])->name('admin.prescription.store');
 Route::get('/admin/prescription/edit/{id}', [PrescriptionController::class, 'editForm'])->name('admin.prescription.edit');
 Route::put('/admin/prescription/edit/{id}', [PrescriptionController::class, 'update'])->name('admin.prescription.update');
 Route::delete('/admin/prescription/delete/{id}', [PrescriptionController::class, 'destroy'])->name('admin.prescription.destroy');

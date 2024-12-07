@@ -21,6 +21,6 @@ class Diagnosis extends Model
     // Relationships
     public function prescriptions()
     {
-        return $this->belongsToMany(Prescription::class, 'PrescriptionDiagnoses', 'DiagnosisId', 'PrescriptionId');
+        return $this->belongsToMany(Prescription::class, 'PrescriptionDiagnosis', 'DiagnosisId', 'PrescriptionId');
     }
 }
