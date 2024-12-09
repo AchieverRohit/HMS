@@ -32,6 +32,7 @@ class PrescriptionController extends Controller
     public function createForm($id)
     {
         // Your logic to handle the appointment id
+        $complaints = Complaint::all();
         return view('admin.prescription.create', compact('id'));
     }
 

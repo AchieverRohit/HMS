@@ -29,18 +29,27 @@
                     <tbody>
                         <tr>
                             <td>1</td>
-                            <td><input type="text" class="form-control " name="complaintName[]"></td>
-                            <td><input type="text" class="form-control" name="frequency[]"></td>
-                            <td><input type="text" class="form-control" name="severity[]"></td>
-                            <td><input type="text" class="form-control" name="duration[]"></td>
-                            <td><input type="date" class="form-control" name="date[]"></td>
-                            <td><input type="text" class="form-control" name="note[]"></td>
+                            <td><input type="text" class="form-control border-0 " name="complaintName[]" id="complaint">
+                            </td>
+                            <td><input type="text" class="form-control border-0 " name="frequency[]" id="complaint">
+                            </td>
+                            <td><input type="text" class="form-control border-0 " name="severity[]" id="complaint">
+                            </td>
+                            <td><input type="text" class="form-control border-0 " name="duration[]" id="complaint">
+                            </td>
+                            <td><input type="date" class="form-control border-0 " name="date[]" id="complaint"></td>
+                            <td><input type="text" class="form-control border-0 " name="note[]" id="complaint"></td>
                             <td class="text-center">
                                 <button class="btn btn-sm btn-light p-0 remove-row">
                                     <span class="text-danger">&times;</span>
                                 </button>
                             </td>
+                            <ul id="complaint-suggestions" class="list-group position-absolute w-100"
+                                style="z-index: 1000; display: none;">
+                                <!-- Suggestions will appear here -->
+                            </ul>
                         </tr>
+
                     </tbody>
                 </table>
             </div>
@@ -63,9 +72,9 @@
                     <tbody>
                         <tr>
                             <td>1</td>
-                            <td><input type="text" class="form-control" name="diagnosisName[]"></td>
-                            <td><input type="text" class="form-control" name="duration[]"></td>
-                            <td><input type="date" class="form-control" name="date[]"></td>
+                            <td><input type="text" class="form-control border-0" name="diagnosisName[]"></td>
+                            <td><input type="text" class="form-control border-0" name="duration[]"></td>
+                            <td><input type="date" class="form-control border-0" name="date[]"></td>
                             <td class="text-center">
                                 <button class="btn btn-sm btn-light p-0 remove-row">
                                     <span class="text-danger">&times;</span>
@@ -94,9 +103,9 @@
                     <tbody>
                         <tr>
                             <td>1</td>
-                            <td><input type="text" class="form-control" name="testName[]"></td>
-                            <td><input type="text" class="form-control" name="cost[]"></td>
-                            <td><input type="text" class="form-control" name="description[]"></td>
+                            <td><input type="text" class="form-control border-0" name="testName[]"></td>
+                            <td><input type="text" class="form-control border-0" name="cost[]"></td>
+                            <td><input type="text" class="form-control border-0" name="description[]"></td>
                             <td class="text-center">
                                 <button class="btn btn-sm btn-light p-0 remove-row">
                                     <span class="text-danger">&times;</span>
@@ -128,12 +137,12 @@
                     <tbody>
                         <tr>
                             <td>1</td>
-                            <td><input type="text" class="form-control" name="medicineName[]"></td>
-                            <td><input type="text" class="form-control" name="dose[]"></td>
-                            <td><input type="text" class="form-control" name="frequency[]"></td>
-                            <td><input type="text" class="form-control" name="whenToTake[]"></td>
-                            <td><input type="text" class="form-control" name="duration[]"></td>
-                            <td><input type="text" class="form-control" name="instruction[]"></td>
+                            <td><input type="text" class="form-control border-0" name="medicineName[]"></td>
+                            <td><input type="text" class="form-control border-0" name="dose[]"></td>
+                            <td><input type="text" class="form-control border-0" name="frequency[]"></td>
+                            <td><input type="text" class="form-control border-0" name="whenToTake[]"></td>
+                            <td><input type="text" class="form-control border-0" name="duration[]"></td>
+                            <td><input type="text" class="form-control border-0" name="instruction[]"></td>
                             <td class="text-center">
                                 <button class="btn btn-sm btn-light p-0 remove-row">
                                     <span class="text-danger">&times;</span>
@@ -146,7 +155,7 @@
 
             <div class="mb-5">
                 <label for="NextVisitDate">Follow up Date</label>
-                <input type="date" name="NextVisitDate" id="NextVisitDate">
+                <input type="date" name="NextVisitDate" id="NextVisitDate" class="form-control">
             </div>
             <!-- Save Prescription Button -->
             <div class="text-center">
@@ -184,5 +193,36 @@
                 });
             });
         });
+
+        const compalintSuggestions = @json($complaints->toArray());
+
+        const filtercompalintSuggestions = () => {
+            const complaintSuggestionsList = document.getElementById("complaint-suggestions");
+            complaintSuggestionsList.innerHtml = "";
+
+            try {
+                if (compalintSuggestions.length > 0) {
+                    compalintSuggestions.forEach((complaint) => {
+                        const li = document.createElement("li");
+                        li.className = "";
+                        li.textContent = `${complaint.ComplaintName || ""} ${complaint.Frequency || ""}
+                        ${complaint.Severity || ""} ${complaint.Duration || ""}  ${complaint.Date || ""}`;
+                        li.style.cursor = "pointer";
+                        li.onclick = () => {
+
+                        }
+
+                        complaintSuggestionsList.appendChild(li);
+                    })
+                    suggestionsList.style.display = "block";
+
+                } else {
+                    suggestionsList.style.display = "none";
+
+                }
+            } catch (error) {
+                console.error("Error filtering suggestions:", error);
+            }
+        }
     </script>
 @endsection
