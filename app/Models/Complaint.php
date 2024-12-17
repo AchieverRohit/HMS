@@ -9,6 +9,7 @@ class Complaint extends Model
 {
     use HasFactory;
 
+    protected $table = 'complaint';
     protected $fillable = [
         'ComplaintName',
         'Frequency',

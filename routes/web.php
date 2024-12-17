@@ -11,6 +11,7 @@ use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\DiagnosisController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\ComplaintController;
 
 
 Route::get('/', function () {
@@ -95,3 +96,5 @@ Route::put('/admin/prescription/edit/{id}', [PrescriptionController::class, 'upd
 Route::delete('/admin/prescription/delete/{id}', [PrescriptionController::class, 'destroy'])->name('admin.prescription.destroy');
 Route::get('/diagnosis/suggestions', [PrescriptionController::class, 'getDiagnosisSuggestions'])->name('diagnosis.suggestions');
 
+Route::get('/diagnosis/search-list', [DiagnosisController::class, 'searchList'])->name('diagnosis.search-list');
+Route::get('/complaint/search-list', [ComplaintController::class, 'searchList'])->name('complaint.search-list');

@@ -3,226 +3,290 @@
 @section('title', 'Prescription Form')
 
 @section('content')
-    <div class="container py-4">
+<div class="main-panel">
+        <div class="content-wrapper">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <h2>Dynamic Diagnosis Table</h2>
+                            <form action="{{ route('admin.prescription.store', $id) }}" method="POST">
+                                @csrf
+                                <h4>Complaint Table</h4>
+                                <table class="table table-bordered" id="complaintTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Complaint Name</th>
+                                            <th>Complaint Note</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <!-- Complaint Input -->
+                                                <input 
+                                                    type="text" 
+                                                    name="complaints[0][name]" 
+                                                    class="form-control complaint-name" 
+                                                    placeholder="Enter complaint Name"
+                                                    required 
+                                                    data-complaint-dropdown-id="dropdown_complaint_0">
+                                                
+                                                <!-- Dropdown Suggestions -->
+                                                <ul id="dropdown_complaint_0" class="list-group" style="position: absolute; z-index: 1000; display: none;"></ul>
+                                            </td>
+                                            <td>
+                                                <input 
+                                                    type="text" 
+                                                    name="complaints[0][note]" 
+                                                    class="form-control" 
+                                                    placeholder="Enter note" 
+                                                    required>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-success" id="addComplaintRow">+</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
 
-        <!-- Prescription Form -->
-        <form action="{{ route('admin.prescription.store', $id) }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <!-- Complaints Section -->
-            <div class="mb-5">
-                <div class="d-flex align-items-center mb-3">
-                    <h2 class="h5 mb-0">Complaints</h2>
+                                <h4>Diagnosis Table</h4>
+                                <table class="table table-bordered" id="diagnosisTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Diagnosis Name</th>
+                                            <th>Duration</th>
+                                            <th>Date</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <!-- Diagnosis Input -->
+                                                <input 
+                                                    type="text" 
+                                                    name="diagnoses[0][name]" 
+                                                    class="form-control diagnosis-name" 
+                                                    placeholder="Enter Diagnosis Name" 
+                                                    required 
+                                                    data-dropdown-id="dropdown_diagnosis_0">
+                                                
+                                                <!-- Dropdown Suggestions -->
+                                                <ul id="dropdown_diagnosis_0" class="list-group"></ul>
+                                            </td>
+                                            <td>
+                                                <input 
+                                                    type="text" 
+                                                    name="diagnoses[0][duration]" 
+                                                    class="form-control" 
+                                                    placeholder="Enter Duration (e.g., 5 days)" 
+                                                    required>
+                                            </td>
+                                            <td>
+                                                <input 
+                                                    type="date" 
+                                                    name="diagnoses[0][date]" 
+                                                    class="form-control" 
+                                                    required>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-success" id="addRow">+</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <table class="table table-bordered" id="complaintsTable">
-                    <thead class="table-light">
-                        <tr>
-                            <th>#</th>
-                            <th>Complaint Name</th>
-                            <th>Frequency</th>
-                            <th>Severity</th>
-                            <th>Duration</th>
-                            <th>Date</th>
-                            <th>Note</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td><input type="text" class="form-control border-0 " name="complaintName[]" id="complaint">
-                            </td>
-                            <td><input type="text" class="form-control border-0 " name="frequency[]" id="complaint">
-                            </td>
-                            <td><input type="text" class="form-control border-0 " name="severity[]" id="complaint">
-                            </td>
-                            <td><input type="text" class="form-control border-0 " name="duration[]" id="complaint">
-                            </td>
-                            <td><input type="date" class="form-control border-0 " name="date[]" id="complaint"></td>
-                            <td><input type="text" class="form-control border-0 " name="note[]" id="complaint"></td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-light p-0 remove-row">
-                                    <span class="text-danger">&times;</span>
-                                </button>
-                            </td>
-                            <ul id="complaint-suggestions" class="list-group position-absolute w-100"
-                                style="z-index: 1000; display: none;">
-                                <!-- Suggestions will appear here -->
-                            </ul>
-                        </tr>
-
-                    </tbody>
-                </table>
             </div>
+        </div>
+</div>
 
-            <!-- Diagnosis Section -->
-            <div class="mb-5">
-                <div class="d-flex align-items-center mb-3">
-                    <h2 class="h5 mb-0">Diagnosis</h2>
-                </div>
-                <table class="table table-bordered" id="diagnosisTable">
-                    <thead class="table-light">
-                        <tr>
-                            <th>#</th>
-                            <th>Diagnosis</th>
-                            <th>Duration</th>
-                            <th>Date</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td><input type="text" class="form-control border-0" name="diagnosisName[]"></td>
-                            <td><input type="text" class="form-control border-0" name="duration[]"></td>
-                            <td><input type="date" class="form-control border-0" name="date[]"></td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-light p-0 remove-row">
-                                    <span class="text-danger">&times;</span>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        let rowIndex = 1;
 
-            <!-- Tests Section -->
-            <div class="mb-5">
-                <div class="d-flex align-items-center mb-3">
-                    <h2 class="h5 mb-0">Tests</h2>
-                </div>
-                <table class="table table-bordered" id="testsTable">
-                    <thead class="table-light">
-                        <tr>
-                            <th>#</th>
-                            <th>Test Name</th>
-                            <th>Cost</th>
-                            <th>Description</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td><input type="text" class="form-control border-0" name="testName[]"></td>
-                            <td><input type="text" class="form-control border-0" name="cost[]"></td>
-                            <td><input type="text" class="form-control border-0" name="description[]"></td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-light p-0 remove-row">
-                                    <span class="text-danger">&times;</span>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+        // Add Row Logic
+        $('#addRow').on('click', function () {
+            const newRow = `
+                <tr>
+                    <td>
+                        <input type="text" name="diagnoses[${rowIndex}][name]" class="form-control diagnosis-name" placeholder="Enter Diagnosis Name" required data-dropdown-id="dropdown_diagnosis_${rowIndex}">
+                        <ul id="dropdown_diagnosis_${rowIndex}" class="list-group"></ul>
+                    </td>
+                    <td>
+                        <input type="text" name="diagnoses[${rowIndex}][duration]" class="form-control" placeholder="Enter Duration (e.g., 5 days)" required>
+                    </td>
+                    <td>
+                        <input type="date" name="diagnoses[${rowIndex}][date]" class="form-control" required>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger removeRow">-</button>
+                    </td>
+                </tr>
+            `;
+            $('#diagnosisTable tbody').append(newRow);
+            rowIndex++;
+        });
 
-            <!-- Medicines Section -->
-            <div class="mb-5">
-                <div class="d-flex align-items-center mb-3">
-                    <h2 class="h5 mb-0">Medicines</h2>
-                </div>
-                <table class="table table-bordered" id="medicinesTable">
-                    <thead class="table-light">
-                        <tr>
-                            <th>#</th>
-                            <th>Medicine Name</th>
-                            <th>Dose</th>
-                            <th>Frequency</th>
-                            <th>When To Take</th>
-                            <th>Duration</th>
-                            <th>Instruction</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td><input type="text" class="form-control border-0" name="medicineName[]"></td>
-                            <td><input type="text" class="form-control border-0" name="dose[]"></td>
-                            <td><input type="text" class="form-control border-0" name="frequency[]"></td>
-                            <td><input type="text" class="form-control border-0" name="whenToTake[]"></td>
-                            <td><input type="text" class="form-control border-0" name="duration[]"></td>
-                            <td><input type="text" class="form-control border-0" name="instruction[]"></td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-light p-0 remove-row">
-                                    <span class="text-danger">&times;</span>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+        // Remove Row Logic
+        $('#diagnosisTable').on('click', '.removeRow', function () {
+            $(this).closest('tr').remove();
+        });
 
-            <div class="mb-5">
-                <label for="NextVisitDate">Follow up Date</label>
-                <input type="date" name="NextVisitDate" id="NextVisitDate" class="form-control">
-            </div>
-            <!-- Save Prescription Button -->
-            <div class="text-center">
-                <button class="btn btn-primary">Save Prescription</button>
-            </div>
-        </form>
-    </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const sections = ['complaintsTable', 'diagnosisTable', 'testsTable', 'medicinesTable'];
+        // Auto-search and appendChild logic
+        $('#diagnosisTable').on('input', '.diagnosis-name', function () {
+            const inputField = $(this);
+            const dropdownId = inputField.data('dropdown-id');
+            const dropdown = document.getElementById(dropdownId);
+            const query = inputField.val().toLowerCase();
 
-            sections.forEach(sectionId => {
-                const tableBody = document.querySelector(`#${sectionId} tbody`);
+            dropdown.innerHTML = ""; // Clear previous suggestions
+            if (!query || query.length < 2) { // Minimum 2 characters to trigger search
+                dropdown.style.display = "none";
+                return;
+            }
 
-                // Add a new row when any field is filled
-                tableBody.addEventListener('input', () => {
-                    const lastRow = tableBody.lastElementChild;
-                    const inputs = lastRow.querySelectorAll('input');
+            $.ajax({
+                url: "{{ route('diagnosis.search-list') }}",
+                type: "GET",
+                data: { query },
+                success: function (data) {
+                    dropdown.innerHTML = "";
+                    if (data.length > 0) {
+                        data.forEach((diagnosis) => {
+                            const li = document.createElement("li");
+                            li.className = "list-group-item list-group-item-action";
+                            li.textContent = diagnosis.DiagnosisName || "N/A";
+                            li.style.cursor = "pointer";
 
-                    const allFilled = Array.from(inputs).some(input => input.value.trim() !== "");
-                    if (allFilled) {
-                        const newRow = lastRow.cloneNode(true);
-                        Array.from(newRow.querySelectorAll('input')).forEach(input => input.value =
-                            '');
-                        tableBody.appendChild(newRow);
+                            // Add click event to set value
+                            li.onclick = () => {
+                                inputField.val(diagnosis.DiagnosisName);
+                                dropdown.style.display = "none"; // Hide suggestions
+                            };
+
+                            dropdown.appendChild(li);
+                        });
+                        dropdown.style.display = "block";
+                    } else {
+                        dropdown.style.display = "none";
                     }
-                });
-
-                // Remove a row
-                tableBody.addEventListener('click', (e) => {
-                    if (e.target.closest('.remove-row')) {
-                        const row = e.target.closest('tr');
-                        if (tableBody.children.length > 1) row.remove();
-                    }
-                });
+                },
+                error: function (error) {
+                    console.error("Error fetching suggestions:", error);
+                }
             });
         });
 
-        const compalintSuggestions = @json($complaints->toArray());
+        // Hide dropdown on outside click
+        document.addEventListener('click', function (event) {
+            const target = event.target;
+            if (!target.closest('.diagnosis-name') && !target.closest('.list-group')) {
+                document.querySelectorAll('.list-group').forEach((dropdown) => {
+                    dropdown.style.display = "none";
+                });
+            }
+        });
+    });
+</script>
 
-        const filtercompalintSuggestions = () => {
-            const complaintSuggestionsList = document.getElementById("complaint-suggestions");
-            complaintSuggestionsList.innerHtml = "";
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    let complaintRowIndex = 1;
+
+    function addComplaintRow() {
+        const newRow = `
+            <tr>
+                <td>
+                    <input 
+                        type="text" 
+                        name="complaints[${complaintRowIndex}][name]" 
+                        class="form-control complaint-name" 
+                        placeholder="Enter Complaint Name"
+                        data-complaint-dropdown-id="dropdown_complaint_${complaintRowIndex}">
+                    <ul id="dropdown_complaint_${complaintRowIndex}" class="list-group"></ul>
+                </td>
+                <td>
+                    <input 
+                        type="text" 
+                        name="complaints[${complaintRowIndex}][note]" 
+                        class="form-control" 
+                        placeholder="Enter Note">
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger removeComplaintRow">-</button>
+                </td>
+            </tr>
+        `;
+        document.querySelector('#complaintTable tbody').insertAdjacentHTML('beforeend', newRow);
+        complaintRowIndex++;
+    }
+
+    document.getElementById('addComplaintRow').addEventListener('click', addComplaintRow);
+
+    document.querySelector('#complaintTable').addEventListener('click', (e) => {
+        if (e.target && e.target.classList.contains('removeComplaintRow')) {
+            e.target.closest('tr').remove();
+        }
+    });
+
+    // Handle AJAX search for each complaint input field
+    document.querySelector('#complaintTable').addEventListener('input', async (e) => {
+        if (e.target && e.target.classList.contains('complaint-name')) {
+            const inputField = e.target;
+            const dropdownComplaintId = inputField.getAttribute('data-complaint-dropdown-id');
+            const dropdown = document.getElementById(dropdownComplaintId);
+            const query = inputField.value.trim();
+
+            if (query.length < 2) {
+                dropdown.style.display = "none";
+                return;
+            }
 
             try {
-                if (compalintSuggestions.length > 0) {
-                    compalintSuggestions.forEach((complaint) => {
-                        const li = document.createElement("li");
-                        li.className = "";
-                        li.textContent = `${complaint.ComplaintName || ""} ${complaint.Frequency || ""}
-                        ${complaint.Severity || ""} ${complaint.Duration || ""}  ${complaint.Date || ""}`;
+                const response = await fetch(`{{ route('complaint.search-list') }}?query=${query}`);
+                const data = await response.json();
+                console.log("data :- ",data);
+
+                dropdown.innerHTML = "";
+                if (data.length) {
+                    data.forEach(complaint => {
+                        const li = document.createElement('li');
+                        li.className = "list-group-item list-group-item-action";
+                        li.textContent = complaint.ComplaintName || "N/A";
                         li.style.cursor = "pointer";
+
                         li.onclick = () => {
+                            inputField.value = complaint.ComplaintName;
+                            dropdown.style.display = "none";
+                        };
 
-                        }
-
-                        complaintSuggestionsList.appendChild(li);
-                    })
-                    suggestionsList.style.display = "block";
-
+                        dropdown.appendChild(li);
+                    });
+                    dropdown.style.display = "block";
                 } else {
-                    suggestionsList.style.display = "none";
-
+                    dropdown.style.display = "none";
                 }
             } catch (error) {
-                console.error("Error filtering suggestions:", error);
+                console.error("Error fetching complaint search results:", error);
             }
         }
-    </script>
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (event) => {
+        if (!event.target.closest('.complaint-name') && !event.target.closest('.list-group')) {
+            document.querySelectorAll('.list-group').forEach(dropdown => {
+                dropdown.style.display = "none";
+            });
+        }
+    });
+});
+</script>
+
 @endsection

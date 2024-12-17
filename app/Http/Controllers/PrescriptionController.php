@@ -33,12 +33,14 @@ class PrescriptionController extends Controller
     {
         // Your logic to handle the appointment id
         $complaints = Complaint::all();
-        return view('admin.prescription.create', compact('id'));
+        return view('admin.prescription.create', compact('id','complaints'));
     }
 
 
     public function store(Request $request, $id)
     {
+
+        dd($request->all());
         $appointment = Appointment::with(['patient', 'doctor', 'service', 'status'])->where('Id', $id)->first();
         try {
             // Start a database transaction
