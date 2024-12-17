@@ -21,7 +21,7 @@ class Complaint extends Model
     // Relationships
     public function prescriptions()
     {
-        return $this->belongsToMany(Prescription::class, 'PrescriptionComplaints', 'ComplaintsId', 'PrescriptionId')
-            ->withPivot(['Dosage', 'Quantity', 'Duration', 'Remarks']);
+        return $this->belongsToMany(Prescription::class, 'PrescriptionComplaints', 'ComplaintsId', 'PrescriptionId');
     }
+
 }

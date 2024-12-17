@@ -9,6 +9,9 @@ class Prescription extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+    protected $table = 'prescriptions';
+
     protected $fillable = [
         'PatientId',
         'DoctorId',
@@ -33,23 +36,24 @@ class Prescription extends Model
         return $this->belongsTo(Appointment::class, 'AppointmentId');
     }
 
-    public function tests()
+    public function complaints()
     {
-        return $this->hasMany(PrescriptionTest::class, 'PrescriptionId');
+        return $this->belongsToMany(Complaint::class, 'PrescriptionComplaints', 'PrescriptionId', 'ComplaintsId');
     }
 
     public function diagnoses()
     {
-        return $this->hasMany(PrescriptionDiagnoses::class, 'PrescriptionId');
+        return $this->belongsToMany(Diagnosis::class, 'PrescriptionDiagnosis', 'PrescriptionId', 'DiagnosisId');
     }
 
-    public function complaints()
+    public function tests()
     {
-        return $this->hasMany(PrescriptionComplaints::class, 'PrescriptionId');
+        return $this->belongsToMany(Test::class, 'PrescriptionTest', 'PrescriptionId', 'TestId');
     }
 
     public function medicines()
     {
-        return $this->hasMany(PrescriptionMedicine::class, 'PrescriptionId');
+        return $this->belongsToMany(Medicine::class, 'PrescriptionMedicine', 'PrescriptionId', 'MedicineId')
+            ->withPivot(['Dosage', 'Quantity', 'Duration', 'Remarks']);
     }
 }
