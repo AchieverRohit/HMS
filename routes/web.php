@@ -11,6 +11,7 @@ use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\DiagnosisController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\ComplaintController;
 
 
 Route::get('/', function () {
@@ -84,3 +85,16 @@ Route::get('/admin/appointment/{id}/add', [AppointmentController::class, 'create
 Route::post('/admin/appointment/add-patient', [AppointmentController::class, 'storePatientForm'])->name('admin.appointment.store-patient');
 Route::post('/admin/appointment/{id}/add', [AppointmentController::class, 'store'])->name('admin.appointment.store');
 Route::delete('/admin/appointment/delete/{id}', [AppointmentController::class, 'destroy'])->name('admin.appointment.destroy');
+Route::get('/admin/appointment/edit/{id}', [AppointmentController::class, 'editForm'])->name('admin.appointment.edit');
+Route::put('/admin/appointment/edit/{id}', [AppointmentController::class, 'update'])->name('admin.appointment.update');
+
+Route::get('/admin/prescription', [PrescriptionController::class, 'showList'])->name('admin.prescription');
+Route::get('/admin/appointment/add/{id}', [PrescriptionController::class, 'createForm'])->name('admin.prescription.add');
+Route::post('/admin/prescription/add/{id}', [PrescriptionController::class, 'store'])->name('admin.prescription.store');
+Route::get('/admin/prescription/edit/{id}', [PrescriptionController::class, 'editForm'])->name('admin.prescription.edit');
+Route::put('/admin/prescription/edit/{id}', [PrescriptionController::class, 'update'])->name('admin.prescription.update');
+Route::delete('/admin/prescription/delete/{id}', [PrescriptionController::class, 'destroy'])->name('admin.prescription.destroy');
+Route::get('/diagnosis/suggestions', [PrescriptionController::class, 'getDiagnosisSuggestions'])->name('diagnosis.suggestions');
+
+Route::get('/diagnosis/search-list', [DiagnosisController::class, 'searchList'])->name('diagnosis.search-list');
+Route::get('/complaint/search-list', [ComplaintController::class, 'searchList'])->name('complaint.search-list');

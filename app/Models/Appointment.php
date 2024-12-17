@@ -44,7 +44,7 @@ class Appointment extends Model
 
     public function status()
     {
-        return $this->belongsTo(AppointmentStatus::class, 'StatusId');
+        return $this->belongsTo(AppointmentStatus::class, 'StatusId', 'Id');
     }
 
     public function prescription()

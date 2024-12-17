@@ -90,4 +90,12 @@ class DiagnosisController extends Controller
 
     }
 
+    public function searchList(Request $request)
+    {
+        $query = $request->get('query');
+        $results = Diagnosis::where('DiagnosisName', 'LIKE', "%{$query}%")->get();
+        return response()->json($results);
+    }
+
+
 }
